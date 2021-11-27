@@ -1,12 +1,11 @@
 <template>
   <v-app>
     <v-container fill-height fluid class="login-container">
-      <v-card elevation="2" class="mx-auto" min-width="500px">
+      <v-card flat color="#d0d0d0" class="mx-auto" min-width="500px">
         <v-card-text>
           <v-img 
-            src="@/assets/logo.png" 
+            src="@/assets/logo-with-text.svg" 
             class="mx-auto mb-5"
-            max-height="100%"
             max-width="88px"
           />
           <div>
@@ -93,6 +92,6 @@ export default {
 
 <style scoped>
 .login-container {
-  background-color: #d0d2d3;  
+  background-color: #505253;  
 }
 </style>
