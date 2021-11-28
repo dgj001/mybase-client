@@ -6,6 +6,9 @@
       elevation="2"
     >
       <v-card-title>{{ project.name }}</v-card-title>
+      <v-card-actions>
+        <v-btn class="primary" @click="editHandler(project._id)">Edit</v-btn>
+      </v-card-actions>
     </v-card>
   </div>
 </template>
@@ -27,6 +30,12 @@ export default {
     ...mapActions('projectList', {
       fetchProjects: 'fetch',
     }),
+    editHandler(projectId) {      
+      this.$router.push({ 
+        name: `project`, 
+        params: { id: projectId },
+      });
+    },
   }
 }
 </script>

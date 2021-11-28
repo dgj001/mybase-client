@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import store from '../store';
+import ProjectListView from '../views/ProjectListView'
 import ProjectView from '../views/ProjectView'
 import LoginView from '../views/LoginView'
 
@@ -31,6 +32,12 @@ const routes = [
   {
     path: '/projects',
     name: 'projects',
+    component: ProjectListView,
+    beforeEnter: ifAuthenticated,
+  },
+  {
+    path: '/projects/:id',
+    name: 'project',
     component: ProjectView,
     beforeEnter: ifAuthenticated,
   },
