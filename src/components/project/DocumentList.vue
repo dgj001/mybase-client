@@ -5,20 +5,17 @@
         <img src="@/assets/plus.svg" class="plus-button" height="24"/>
       </div>
       <div class="value-column">
-        Add field
+        Add document
       </div>
     </div>
     <div
-      v-for="field of fields"
-      :key="field._id"
+      v-for="document of documents"
+      :key="document._id"
       class="row"
     >
       <div class="button-column"></div>
       <div class="name-column">
-        {{ field.name }}:
-      </div>
-      <div class="value-column">
-        "{{ field.value }}"
+        {{ document.id }}
       </div>
     </div>
   </div>
@@ -26,9 +23,9 @@
 
 <script>
 export default {
-  name: 'field-list',
+  name: 'document-list',
   props: {
-    fields: {
+    documents: {
       type: Array,
       default: () => [],
     },
@@ -40,7 +37,7 @@ export default {
 .row {
   display: flex;
   padding: 10px 10px 10px 0;
-  /* border: 1px solid darkgray; */
+  cursor: pointer;
 }
 .button-column {
   display: flex;
@@ -67,5 +64,8 @@ export default {
 }
 .add-row:active {
   background-color: #edf4fd;
+}
+.row:hover {
+  background-color: #ebebeb;
 }
 </style>
