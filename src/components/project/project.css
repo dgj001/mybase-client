@@ -1,0 +1,55 @@
+.project-row {
+  display: flex;
+  padding: 10px 10px 10px 0;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project-left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.project-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.project-button {
+  display: flex;
+  min-width: 32px;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.project-name {
+  font-family: 'Courier New', Courier, monospace;
+  padding-right: 10px;
+}
+
+.project-value {
+  font-size: 1rem;
+}
+
+.project-plus {
+  cursor: pointer;
+}
+
+.project-add-row {
+  color: #1a73ed;
+  cursor: pointer;
+}
+
+.project-add-row:hover {
+  background-color: #f2f7fe;
+}
+
+.project-add-row:active {
+  background-color: #edf4fd;
+}
+
+.project-row:hover {
+  background-color: #ebebeb;
+}
