@@ -1,13 +1,22 @@
 <template>
-  <div class="project-row">
+  <div 
+    class="project-row"
+    :class="{ 'project-selected': selected }"
+    @click="handleClick"
+  >
     <div class="project-left">
       <div class="project-button" />
-      <div class="project-name">
+      <div class="project-name" :class="{ 'project-bold': selected }">
         {{ document.id }}
       </div>
     </div>
     <div class="project-right">
-      <img src="@/assets/right-angle-bracket.svg" class="right-bracket" height="17" />
+      <img 
+        src="@/assets/right-angle-bracket.svg" 
+        class="right-bracket"
+        :style="{ visibility: selected ? 'visible' : 'hidden'}"
+        height="17" 
+      />
     </div>
   </div>
 </template>
@@ -17,10 +26,22 @@ export default {
   name: 'document-row',
   props: {
     document: Object,
-  }
+    selected: Boolean,
+  },
+  methods: {
+    handleClick() {
+      this.$emit('select', this.document)
+    },
+  },
 }
 </script>
 
 <style scoped>
 @import './project.css';
+.project-visible {
+  visibility: visible;
+}
+.project-hidden {
+  visibility: hidden;
+}
 </style>

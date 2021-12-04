@@ -53,3 +53,11 @@
 .project-row:hover {
   background-color: #ebebeb;
 }
+
+.project-selected {
+  background-color: #ebebeb;
+}
+
+.project-bold {
+  font-weight: bold;
+}

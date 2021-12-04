@@ -5,6 +5,8 @@
       v-for="document of documents"
       :key="document._id"
       :document="document"
+      :selected="document._id === selectedId"
+      @select="handleSelect"
     />
   </div>
 </template>
@@ -24,7 +26,26 @@ export default {
       type: Array,
       default: () => [],
     },
-  }
+  },
+  data() {
+    return {
+      selectedId: null,
+    };
+  },
+  watch: {
+    documents() {
+      if (this.documents.length) {
+        // this.selectedId = this.documents[0]._id;
+        this.handleSelect(this.documents[0])
+      }
+    }
+  },
+  methods: {
+    handleSelect(document) {
+      this.selectedId = document._id;
+      this.$emit('select', document);
+    }
+  },
 }
 </script>
 

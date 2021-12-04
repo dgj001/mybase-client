@@ -1,6 +1,9 @@
 <template>
   <div class="data-container">
-    <document-list :documents="documents" />
+    <document-list 
+      :documents="documents"
+      @select="handleSelect"
+    />
     <field-list :fields="fields" />
   </div>
 </template>
@@ -42,6 +45,9 @@ export default {
     ...mapActions('fieldList', {
       fetchFields: 'fetch',
     }),
+    handleSelect(document) {
+      console.log(document)
+    },
   }
 }
 </script>
