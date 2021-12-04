@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="field-list">
     <add-row label="Add field" />
     <field-row
       v-for="field of fields"

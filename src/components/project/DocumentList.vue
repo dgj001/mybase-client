@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="document-list">
     <add-row label="Add document" />
     <document-row 
       v-for="document of documents"

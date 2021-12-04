@@ -1,5 +1,10 @@
 <template>
-  <div class="data-container">
+  <div class="grid-container">
+    <collection-header />
+    <document-header
+      v-if="selectedDocument"
+      :document="selectedDocument"
+    />
     <document-list 
       :documents="documents"
       @select="handleSelect"
@@ -14,14 +19,18 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
+import CollectionHeader from './CollectionHeader';
+import DocumentHeader from './DocumentHeader';
 import DocumentList from './DocumentList';
 import FieldList from './FieldList';
 
 export default {
   name: 'project',
   components: { 
-    DocumentList ,
-    FieldList,
+    CollectionHeader,
+    DocumentHeader,
+    DocumentList,
+    FieldList
   },
   data() {
     return {
@@ -60,8 +69,10 @@ export default {
 </script>
 
 <style scoped>
-.data-container {
-  display: flex;
+.grid-container {
+  width: 100%;
+  display: grid;
+    grid-template-columns: repeat(2, 1fr);
   box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.15);
   border-radius: 6px;
 }
