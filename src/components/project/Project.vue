@@ -4,7 +4,10 @@
       :documents="documents"
       @select="handleSelect"
     />
-    <field-list :fields="fields" />
+    <field-list
+      v-if="fields !== null"
+      :fields="fields"      
+    />
   </div>
 </template>
 
@@ -22,6 +25,8 @@ export default {
   },
   data() {
     return {
+      projectId: null,
+      selectedDocument: null,
     };
   },
   computed: {
@@ -33,10 +38,8 @@ export default {
     }),
   },
   mounted() {
-    const projectId = this.$route.params.id;
-
-    this.fetchDocuments(projectId);
-    this.fetchFields(projectId);
+    this.projectId = this.$route.params.id;
+    this.fetchDocuments(this.projectId);
   },
   methods: {
     ...mapActions('documentList', {
@@ -46,7 +49,11 @@ export default {
       fetchFields: 'fetch',
     }),
     handleSelect(document) {
-      console.log(document)
+      this.selectedDocument = document;
+      this.fetchFields({
+        projectId: this.projectId,
+        documentId: document._id
+      });
     },
   }
 }

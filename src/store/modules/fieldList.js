@@ -1,7 +1,7 @@
 import http from "@/http";
 
 const state = {
-  fieldList: [],
+  fieldList: null,
   isLoading: false,
   error: null,
 };
@@ -13,10 +13,11 @@ const getters = {
 };
 
 const actions = {
-  async fetch({ commit }, projectId) {
+  async fetch({ commit }, params) {
     commit('setIsLoading', true);
     try {
-      http.get(`/fields?projectId=${projectId}`).then(response => {
+      const url = `/fields?projectId=${params.projectId}&documentId=${params.documentId}`;
+      http.get(url).then(response => {
         const list = response.data.documents;
         commit('setList', list);
       })
