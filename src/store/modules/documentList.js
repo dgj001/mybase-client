@@ -15,14 +15,14 @@ const getters = {
 };
 
 const actions = {
-  async fetch({ commit }, projectId) {
+  async fetch({ commit }, params) {
     commit('setIsLoading', true);
     try {
-      http.get(`/documents?projectId=${projectId}`).then(response => {
+      http.get(`/documents?collectionId=${params.collectionId}`).then(response => {
         const list = response.data.documents;
         commit('setList', list);
-        const first = list && list.length ? list[0] : null;
-        commit('setSelectedId', first._id);
+        const firstId = list && list.length ? list[0]._id : null;
+        commit('setSelectedId', firstId);
       })
     } catch (error) {
       commit('setError', error);

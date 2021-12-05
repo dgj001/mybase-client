@@ -33,7 +33,7 @@
             </span>
           </v-tooltip>
         </div>
-        <v-text-field solo v-model="documentId" />
+        <v-text-field solo v-model="documentName" />
       </v-card-text>
 
       <v-divider></v-divider>
@@ -62,31 +62,31 @@ export default {
   name: 'add-document-dialog',
   props: {
     show: Boolean,
-    projectId: String,
+    collectionId: String,
     error: String,
   },
   data() {
     return {
       showDialog: false,
-      documentId: null,
+      documentName: null,
     };
   },
   computed: {
     saveDisabled() {
-      return !this.documentId || !this.documentId.length;
+      return !this.documentName || !this.documentName.length;
     },
   },
   watch: {
     show(newValue) {
-      this.documentId = null;
+      this.documentName = null;
       this.showDialog = newValue;
     },
   },
   methods: {
     ok() {
       const newDoc = {
-        id: this.documentId,
-        projectId: this.projectId,
+        id: this.documentName,
+        collectionId: this.collectionId,
       };
       this.$emit('ok', newDoc)
     },

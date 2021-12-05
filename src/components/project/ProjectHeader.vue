@@ -1,4 +1,4 @@
-<template>
+<template>  
   <div class="header-row">
     
   </div>
@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'collection-header',
+  name: 'project-header',
 }
 </script>
 

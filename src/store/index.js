@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import auth from './modules/auth';
+import collectionList from './modules/collectionList';
 import documentList from './modules/documentList';
 import fieldList from './modules/fieldList';
 import projectList from './modules/projectList';
@@ -12,6 +13,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   modules: {
     auth,
+    collectionList,
     documentList,
     fieldList,
     projectList,

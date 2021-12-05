@@ -1,11 +1,15 @@
 <template>
   <div>
     <div class="grid-container">
+      <project-header />
       <collection-header />
       <document-header
-        v-if="selectedDocument"
         :document="selectedDocument"
         @remove="removeDocument"
+      />
+      <collection-list
+        :collections="collections"
+        :is-last-child="!selectedCollection"
       />
       <document-list 
         :documents="documents"
@@ -19,8 +23,8 @@
     </div>
     <add-document-dialog 
       :show="showAddDialog"
-      :projectId="projectId"
-      :error="error"
+      :collectionId="selectedCollection ? selectedCollection._id : null"
+      :error="documentError"
       @ok="addDocument"
       @cancel="showAddDialog = false"
     />
@@ -32,18 +36,22 @@ import { mapActions, mapGetters } from 'vuex';
 
 import AddDocumentDialog from './AddDocumentDialog';
 import CollectionHeader from './CollectionHeader';
+import CollectionList from './CollectionList';
 import DocumentHeader from './DocumentHeader';
 import DocumentList from './DocumentList';
 import FieldList from './FieldList';
+import ProjectHeader from './ProjectHeader';
 
 export default {
   name: 'project',
   components: { 
     AddDocumentDialog,
     CollectionHeader,
+    CollectionList,
     DocumentHeader,
     DocumentList,
-    FieldList
+    FieldList,
+    ProjectHeader,
   },
   data() {
     return {
@@ -52,31 +60,48 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('collectionList', {
+      collections: 'getList',
+      selectedCollectionId: 'getSelectedId',
+    }),
     ...mapGetters('documentList', {
       documents: 'getList',
-      error: 'getError',
+      documentError: 'getError',
       selectedDocumentId: 'getSelectedId',
     }),
     ...mapGetters('fieldList', {
       fields: 'getList'
     }),
+    selectedCollection() {
+      return this.collections.find(c => c._id === this.selectedCollectionId);
+    },
     selectedDocument() {
       return this.documents.find(d => d._id === this.selectedDocumentId);
     }
   },
   watch: {
+    selectedCollection(newValue) {
+      if (!newValue) return;
+      this.fetchDocuments({
+        collectionId: newValue._id,
+      });
+    },
     selectedDocument(newValue) {
+      if (!newValue) return;
       this.fetchFields({
-        projectId: this.projectId,
         documentId: newValue._id
       });
     },
   },
   mounted() {
     this.projectId = this.$route.params.id;
-    this.fetchDocuments(this.projectId);
+    this.fetchCollections(this.projectId);
   },
   methods: {
+    ...mapActions('collectionList', {
+      fetchCollections: 'fetch',
+      selectCollection: 'selectCollection',
+    }),
     ...mapActions('documentList', {
       fetchDocuments: 'fetch',
       createDocument: 'create',
@@ -91,7 +116,7 @@ export default {
         document,
         select: true,
       });
-      if (!this.error) {
+      if (!this.documentError) {
         this.showAddDialog = false;      
       }
     },
@@ -106,7 +131,7 @@ export default {
 .grid-container {
   width: 100%;
   display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.15);
   border-radius: 6px;
 }

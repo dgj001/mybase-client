@@ -1,6 +1,6 @@
 <template>
   <div class="header-row">
-    {{ document.id }}
+    {{ documentName }}
     <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -27,9 +27,10 @@ export default {
   props: {
     document: Object,
   },
-  data() {
-    return {
-    };
+  computed: {
+    documentName() {
+      return this.document ? this.document.id : null;
+    },
   },
   methods: {
     handleListItemLClick() {
