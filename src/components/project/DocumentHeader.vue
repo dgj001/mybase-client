@@ -36,7 +36,7 @@ export default {
     handleListItemLClick() {
       this.$emit('remove', this.document);
     },
-  }
+  },
 }
 </script>
 

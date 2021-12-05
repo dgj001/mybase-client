@@ -2,7 +2,10 @@
   <div>
     <div class="grid-container">
       <project-header />
-      <collection-header />
+      <collection-header
+        :collection="selectedCollection"
+        @remove="removeCollection"
+      />
       <document-header
         :document="selectedDocument"
         @remove="removeDocument"
@@ -100,17 +103,21 @@ export default {
   methods: {
     ...mapActions('collectionList', {
       fetchCollections: 'fetch',
-      selectCollection: 'selectCollection',
+      deleteCollection: 'delete',
+      selectCollection: 'select',
     }),
     ...mapActions('documentList', {
       fetchDocuments: 'fetch',
       createDocument: 'create',
       deleteDocument: 'delete',
-      selectDocument: 'selectDocument',
+      selectDocument: 'select',
     }),
     ...mapActions('fieldList', {
       fetchFields: 'fetch',
     }),
+    removeCollection(collection) {
+      this.deleteCollection(collection._id);
+    },
     async addDocument(document) {
       await this.createDocument({
         document,

@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     ...mapActions('documentList', {
-      selectDocument: 'selectDocument',
+      selectDocument: 'select',
     }),
     handleClick() {
       this.selectDocument(this.document._id);

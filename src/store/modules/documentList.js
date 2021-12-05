@@ -1,14 +1,14 @@
 import http from "@/http";
 
 const state = {
-  documentList: [],
+  list: [],
   isLoading: false,
   error: null,
   selectedId: null,
 };
 
 const getters = {
-  getList: state => state.documentList,
+  getList: state => state.list,
   getIsLoading: state => state.isLoading,
   getError: state => state.error,
   getSelectedId: state => state.selectedId,
@@ -35,7 +35,7 @@ const actions = {
     await http.post('/documents', params.document)
       .then((response) => {
         const newDoc = response.data.document;
-        commit('setList', state.documentList.concat([ newDoc ]));
+        commit('setList', state.list.concat([ newDoc ]));
         if (params.select) {
           commit('setSelectedId', newDoc._id);
         }
@@ -47,20 +47,20 @@ const actions = {
   async delete({ commit }, documentId) {
     http.delete(`/documents/${documentId}`)
       .then(() => {
-        commit('setList', state.documentList.filter(doc => doc._id !== documentId));
+        commit('setList', state.list.filter(doc => doc._id !== documentId));
       })
       .catch(error => {
         commit('setError', error);
       });
   },
-  selectDocument({ commit }, documentId) {
+  select({ commit }, documentId) {
     commit('setSelectedId', documentId);
   }
 };
 
 const mutations = {
   setList(state, value) {
-    state.documentList = value;
+    state.list = value;
   },
   setIsLoading(state, value) {
     state.isLoading = value;

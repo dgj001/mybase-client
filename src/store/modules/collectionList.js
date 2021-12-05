@@ -30,6 +30,15 @@ const actions = {
       commit('setIsLoading', false);
     }
   },
+  async delete({ commit }, collectionId) {
+    http.delete(`/collections/${collectionId}`)
+      .then(() => {
+        commit('setList', state.list.filter(col => col._id !== collectionId));
+      })
+      .catch(error => {
+        commit('setError', error);
+      });
+  },
   select({ commit }, collectionId) {
     commit('setSelectedId', collectionId);
   }
