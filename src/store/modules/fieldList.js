@@ -1,13 +1,13 @@
 import http from "@/http";
 
 const state = {
-  fieldList: null,
+  list: null,
   isLoading: false,
   error: null,
 };
 
 const getters = {
-  getList: state => state.fieldList,
+  getList: state => state.list,
   getIsLoading: state => state.isLoading,
   getError: state => state.error,
 };
@@ -27,11 +27,22 @@ const actions = {
       commit('setIsLoading', false);
     }
   },
+  async create({ commit }, params) {
+    commit('setError', null);
+    await http.post('/fields', params.field)
+      .then((response) => {
+        const newField = response.data.document;
+        commit('setList', state.list.concat([ newField ]));
+      })
+      .catch(error => {
+        commit('setError', error.message);
+      });
+  },
 };
 
 const mutations = {
   setList(state, value) {
-    state.fieldList = value;
+    state.list = value;
   },
   setIsLoading(state, value) {
     state.isLoading = value;

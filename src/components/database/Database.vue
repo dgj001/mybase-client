@@ -20,7 +20,7 @@
         :is-last-child="!selectedDocument"
       />
       <field-list
-        v-if="fields !== null"
+        :documentId="selectedDocument ? selectedDocument._id : null"
         :fields="fields"      
       />
     </div>
