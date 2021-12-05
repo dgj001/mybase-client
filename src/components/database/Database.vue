@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="grid-container">
-      <project-header />
+      <database-header />
       <collection-header
         :collection="selectedCollection"
         @remove="removeCollection"
@@ -37,13 +37,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
-import AddDocumentDialog from './AddDocumentDialog';
-import CollectionHeader from './CollectionHeader';
-import CollectionList from './CollectionList';
-import DocumentHeader from './DocumentHeader';
-import DocumentList from './DocumentList';
-import FieldList from './FieldList';
-import ProjectHeader from './ProjectHeader';
+import AddDocumentDialog from './document/AddDocumentDialog';
+import CollectionHeader from './collection/CollectionHeader';
+import CollectionList from './collection/CollectionList';
+import DatabaseHeader from './DatabaseHeader';
+import DocumentHeader from './document/DocumentHeader';
+import DocumentList from './document/DocumentList';
+import FieldList from './field/FieldList';
 
 export default {
   name: 'database',
@@ -51,10 +51,10 @@ export default {
     AddDocumentDialog,
     CollectionHeader,
     CollectionList,
+    DatabaseHeader,
     DocumentHeader,
     DocumentList,
     FieldList,
-    ProjectHeader,
   },
   data() {
     return {

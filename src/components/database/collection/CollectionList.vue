@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import AddRow from './AddRow';
+import AddRow from '../AddRow';
 import CollectionRow from './CollectionRow';
 
 export default {

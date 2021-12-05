@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import AddRow from './AddRow';
+import AddRow from '../AddRow';
 import FieldRow from './FieldRow';
 
 export default {
