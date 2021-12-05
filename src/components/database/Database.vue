@@ -46,7 +46,7 @@ import FieldList from './FieldList';
 import ProjectHeader from './ProjectHeader';
 
 export default {
-  name: 'project',
+  name: 'database',
   components: { 
     AddDocumentDialog,
     CollectionHeader,
@@ -135,6 +135,7 @@ export default {
 </script>
 
 <style scoped>
+@import './database.css';
 .grid-container {
   width: 100%;
   display: grid;

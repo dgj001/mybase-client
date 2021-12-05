@@ -4,6 +4,7 @@
   --color-add-bg-active: #edf4fd;
   --color-header: #fafafa;
   --color-selected-bg: #ebebeb;
+  --color-boder: #e0e0e0;
 }
 
 .header-row {
@@ -83,5 +84,5 @@
 }
 
 .right-border {
-  border-right: 1px solid var(--color-selected-bg);
+  border-right: 1px solid var(--color-boder);
 }

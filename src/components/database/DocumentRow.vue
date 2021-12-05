@@ -48,7 +48,6 @@ export default {
 </script>
 
 <style scoped>
-@import './project.css';
 .project-visible {
   visibility: visible;
 }

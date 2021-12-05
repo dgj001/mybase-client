@@ -2,19 +2,19 @@
   <v-app>
     <v-main>
       <v-container>
-        <project />
+        <database />
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Project from '../components/project/Project';
+import Database from '../components/database/Database';
 
 export default {
   name: 'project-view',
   components: {
-    Project
+    Database
   },
 }
 </script>

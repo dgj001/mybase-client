@@ -29,5 +29,4 @@ export default {
 </script>
 
 <style scoped>
-@import './project.css';
 </style>

@@ -41,8 +41,6 @@ export default {
 </script>
 
 <style scoped>
-@import './project.css';
-
 .v-list-item {
   cursor: pointer;
 }
