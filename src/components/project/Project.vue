@@ -1,17 +1,28 @@
 <template>
-  <div class="grid-container">
-    <collection-header />
-    <document-header
-      v-if="selectedDocument"
-      :document="selectedDocument"
-    />
-    <document-list 
-      :documents="documents"
-      @select="handleSelect"
-    />
-    <field-list
-      v-if="fields !== null"
-      :fields="fields"      
+  <div>
+    <div class="grid-container">
+      <collection-header />
+      <document-header
+        v-if="selectedDocument"
+        :document="selectedDocument"
+        @remove="removeDocument"
+      />
+      <document-list 
+        :documents="documents"
+        @add="showAddDialog = true"
+        @select="selectDocument"
+      />
+      <field-list
+        v-if="fields !== null"
+        :fields="fields"      
+      />
+    </div>
+    <add-document-dialog 
+      :show="showAddDialog"
+      :projectId="projectId"
+      :error="error"
+      @ok="addDocument"
+      @cancel="showAddDialog = false"
     />
   </div>
 </template>
@@ -19,6 +30,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
+import AddDocumentDialog from './AddDocumentDialog';
 import CollectionHeader from './CollectionHeader';
 import DocumentHeader from './DocumentHeader';
 import DocumentList from './DocumentList';
@@ -27,6 +39,7 @@ import FieldList from './FieldList';
 export default {
   name: 'project',
   components: { 
+    AddDocumentDialog,
     CollectionHeader,
     DocumentHeader,
     DocumentList,
@@ -36,11 +49,13 @@ export default {
     return {
       projectId: null,
       selectedDocument: null,
+      showAddDialog: false,
     };
   },
   computed: {
     ...mapGetters('documentList', {
       documents: 'getList',
+      error: 'getError',
     }),
     ...mapGetters('fieldList', {
       fields: 'getList'
@@ -53,11 +68,23 @@ export default {
   methods: {
     ...mapActions('documentList', {
       fetchDocuments: 'fetch',
+      createDocument: 'create',
+      deleteDocument: 'delete',
     }),
     ...mapActions('fieldList', {
       fetchFields: 'fetch',
     }),
-    handleSelect(document) {
+    async addDocument(document) {
+      await this.createDocument(document);
+      if (!this.error) {
+        this.showAddDialog = false;      
+        this.selectDocument(document);
+      }
+    },
+    removeDocument(document) {
+      this.deleteDocument(document._id);
+    },
+    selectDocument(document) {
       this.selectedDocument = document;
       this.fetchFields({
         projectId: this.projectId,

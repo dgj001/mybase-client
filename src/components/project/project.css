@@ -1,9 +1,17 @@
+:root {
+  --color-add: #1a73ed;
+  --color-add-bg-hover: #f2f7fe;
+  --color-add-bg-active: #edf4fd;
+  --color-header: #fafafa;
+  --color-selected-bg: #ebebeb;
+}
+
 .header-row {
   display: flex;
   padding: 10px;
   align-items: center;
   justify-content: space-between;
-  background-color: #fafafa;
+  background-color: var(--color-header);
 }
 
 .project-row {
@@ -45,25 +53,29 @@
   cursor: pointer;
 }
 
-.project-add-row {
-  color: #1a73ed;
+.project-add-row {  
+  display: flex;
+  padding: 10px 10px 10px 0;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-add);
   cursor: pointer;
 }
 
 .project-add-row:hover {
-  background-color: #f2f7fe;
+  background-color: var(--color-add-bg-hover);
 }
 
 .project-add-row:active {
-  background-color: #edf4fd;
+  background-color: var(--color-add-bg-active);
 }
 
 .project-row:hover {
-  background-color: #ebebeb;
+  background-color: var(--color-selected-bg);
 }
 
 .project-selected {
-  background-color: #ebebeb;
+  background-color: var(--color-selected-bg);
 }
 
 .project-bold {

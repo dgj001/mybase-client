@@ -1,5 +1,5 @@
 <template>
-  <div class="project-row project-add-row">
+  <div class="project-add-row" @click="handleClick">
     <div class="project-left">
       <div class="project-button">
         <img src="@/assets/plus.svg" class="project-plus" height="24"/>
@@ -16,7 +16,12 @@ export default {
   name: 'add-row',
   props: {
     label: String,
-  }
+  },
+  methods: {
+    handleClick() {
+      this.$emit('click');
+    },
+  },
 }
 </script>
 

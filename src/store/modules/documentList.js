@@ -26,6 +26,26 @@ const actions = {
       commit('setIsLoading', false);
     }
   },
+  async create({ commit }, document) {
+    commit('setError', null);
+    await http.post('/documents', document)
+      .then((response) => {
+        const newDoc = response.data.document;
+        commit('setList', state.documentList.concat([ newDoc ]));
+      })
+      .catch(error => {
+        commit('setError', error.message);
+      });
+  },
+  async delete({ commit }, documentId) {
+    http.delete(`/documents/${documentId}`)
+      .then(() => {
+        commit('setList', state.documentList.filter(doc => doc._id !== documentId));
+      })
+      .catch(error => {
+        commit('setError', error);
+      });
+  }
 };
 
 const mutations = {
