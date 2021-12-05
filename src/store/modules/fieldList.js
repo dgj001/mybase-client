@@ -38,6 +38,16 @@ const actions = {
         commit('setError', error.message);
       });
   },
+  async delete({ commit }, fieldId) {
+    commit('setError', null);
+    await http.delete(`/fields/${fieldId}`)
+      .then(() => {
+        commit('setList', state.list.filter(f => f._id !== fieldId));
+      })
+      .catch(error => {
+        commit('setError', error.message);
+      });
+  },
 };
 
 const mutations = {

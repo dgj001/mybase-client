@@ -11,6 +11,7 @@
       v-for="field of fields"
       :key="field._id"
       :field="field"
+      @remove="removeField(field._id)"
     />    
   </div>
 </template>
@@ -49,6 +50,7 @@ export default {
   methods: {
     ...mapActions('fieldList', {
       createField: 'create',
+      deleteField: 'delete',
     }),
     addField() {
       this.showAddDialog = true;
@@ -61,6 +63,9 @@ export default {
       if (!this.error) {
         this.showAddDialog = false;      
       }
+    },
+    removeField(fieldId) {
+      this.deleteField(fieldId);
     },
   },
 }
