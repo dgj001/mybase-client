@@ -1,5 +1,5 @@
 <template>
-  <div class="document-list">
+  <div class="document-list" :class="{ 'right-border': !isLastChild }">
     <add-row 
       label="Add document" 
       @click="addDocument"
@@ -26,6 +26,10 @@ export default {
     documents: {
       type: Array,
       default: () => [],
+    },
+    isLastChild: {
+      type: Boolean,
+      default: true,
     },
   },
   methods: {

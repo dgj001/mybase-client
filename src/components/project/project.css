@@ -81,3 +81,7 @@
 .project-bold {
   font-weight: bold;
 }
+
+.right-border {
+  border-right: 1px solid var(--color-selected-bg);
+}

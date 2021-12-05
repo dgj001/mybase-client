@@ -9,8 +9,8 @@
       />
       <document-list 
         :documents="documents"
+        :is-last-child="!selectedDocument"
         @add="showAddDialog = true"
-        @select="selectDocument"
       />
       <field-list
         v-if="fields !== null"
