@@ -9,20 +9,35 @@
       :key="document._id"
       :document="document"
     />
+    <add-document-dialog 
+      :show="showAddDialog"
+      :collectionId="collectionId"
+      :error="error"
+      @ok="handleOk"
+      @cancel="showAddDialog = false"
+    />
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
+import AddDocumentDialog from './AddDocumentDialog';
 import AddRow from '../AddRow';
 import DocumentRow from './DocumentRow';
 
 export default {
   name: 'document-list',
   components: {
+    AddDocumentDialog,
     AddRow,
     DocumentRow,
   },
   props: {
+    collectionId: {
+      type: String,
+      default: null,
+    },
     documents: {
       type: Array,
       default: () => [],
@@ -32,10 +47,32 @@ export default {
       default: true,
     },
   },
+  data() {
+    return {
+      showAddDialog: false,
+    }
+  },
+  computed: {
+    ...mapGetters('documentList', {
+      error: 'getError',
+    })
+  },
   methods: {
+    ...mapActions('documentList', {
+      createDocument: 'create',
+    }),
     addDocument() {
-      this.$emit('add');
+      this.showAddDialog = true;
     },
+    async handleOk(document) {
+      await this.createDocument({
+        document,
+        select: true,
+      });
+      if (!this.error) {
+        this.showAddDialog = false;      
+      }
+    }
   },
 }
 </script>

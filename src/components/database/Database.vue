@@ -14,30 +14,22 @@
         :collections="collections"
         :is-last-child="!selectedCollection"
       />
-      <document-list 
+      <document-list
+        :collectionId="selectedCollection ? selectedCollection._id : null"
         :documents="documents"
         :is-last-child="!selectedDocument"
-        @add="showAddDialog = true"
       />
       <field-list
         v-if="fields !== null"
         :fields="fields"      
       />
     </div>
-    <add-document-dialog 
-      :show="showAddDialog"
-      :collectionId="selectedCollection ? selectedCollection._id : null"
-      :error="documentError"
-      @ok="addDocument"
-      @cancel="showAddDialog = false"
-    />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
-import AddDocumentDialog from './document/AddDocumentDialog';
 import CollectionHeader from './collection/CollectionHeader';
 import CollectionList from './collection/CollectionList';
 import DatabaseHeader from './DatabaseHeader';
@@ -48,7 +40,6 @@ import FieldList from './field/FieldList';
 export default {
   name: 'database',
   components: { 
-    AddDocumentDialog,
     CollectionHeader,
     CollectionList,
     DatabaseHeader,
@@ -59,7 +50,6 @@ export default {
   data() {
     return {
       projectId: null,
-      showAddDialog: false,
     };
   },
   computed: {
@@ -69,7 +59,6 @@ export default {
     }),
     ...mapGetters('documentList', {
       documents: 'getList',
-      documentError: 'getError',
       selectedDocumentId: 'getSelectedId',
     }),
     ...mapGetters('fieldList', {
@@ -108,7 +97,6 @@ export default {
     }),
     ...mapActions('documentList', {
       fetchDocuments: 'fetch',
-      createDocument: 'create',
       deleteDocument: 'delete',
       selectDocument: 'select',
     }),
@@ -117,15 +105,6 @@ export default {
     }),
     removeCollection(collection) {
       this.deleteCollection(collection._id);
-    },
-    async addDocument(document) {
-      await this.createDocument({
-        document,
-        select: true,
-      });
-      if (!this.documentError) {
-        this.showAddDialog = false;      
-      }
     },
     removeDocument(document) {
       this.deleteDocument(document._id);
