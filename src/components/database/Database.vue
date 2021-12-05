@@ -1,29 +1,30 @@
 <template>
-  <div>
-    <div class="grid-container">
-      <database-header />
-      <collection-header
-        :collection="selectedCollection"
-        @remove="removeCollection"
-      />
-      <document-header
-        :document="selectedDocument"
-        @remove="removeDocument"
-      />
-      <collection-list
-        :collections="collections"
-        :is-last-child="!selectedCollection"
-      />
-      <document-list
-        :collectionId="selectedCollection ? selectedCollection._id : null"
-        :documents="documents"
-        :is-last-child="!selectedDocument"
-      />
-      <field-list
-        :documentId="selectedDocument ? selectedDocument._id : null"
-        :fields="fields"      
-      />
-    </div>
+  <div class="grid-container">
+    <database-header
+      :is-last-child="false"
+    />
+    <collection-header
+      :collection="selectedCollection"
+      :is-last-child="false"
+      @remove="removeCollection"
+    />
+    <document-header
+      :document="selectedDocument"
+      @remove="removeDocument"
+    />
+    <collection-list
+      :collections="collections"
+      :is-last-child="!selectedCollection"
+    />
+    <document-list
+      :collectionId="selectedCollection ? selectedCollection._id : null"
+      :documents="documents"
+      :is-last-child="!selectedDocument"
+    />
+    <field-list
+      :documentId="selectedDocument ? selectedDocument._id : null"
+      :fields="fields"      
+    />
   </div>
 </template>
 
@@ -117,8 +118,10 @@ export default {
 @import './database.css';
 .grid-container {
   width: 100%;
+  height: 100%;
   display: grid;
-    grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto 1fr;
+  grid-template-columns: repeat(3, 1fr);
   box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.15);
   border-radius: 6px;
 }

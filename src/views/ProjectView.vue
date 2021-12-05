@@ -1,8 +1,8 @@
 <template>
   <v-app>
     <v-main>
-      <v-container>
-        <database />
+      <v-container style="height: 100%">
+        <database style="height: 95%"/>
       </v-container>
     </v-main>
   </v-app>

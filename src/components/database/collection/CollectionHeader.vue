@@ -1,5 +1,5 @@
 <template>
-  <div class="header-row">
+  <div class="header-row" :class="{ 'right-border': !isLastChild }">
     {{ collectionName }}
     <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
@@ -26,6 +26,7 @@ export default {
   name: 'collection-header',
   props: {
     collection: Object,
+    isLastChild: Boolean,
   },
   computed: {
     collectionName() {

@@ -1,31 +1,68 @@
 <template>
-  <v-dialog
+  <v-menu
     v-model="showDialog"
-    width="500"
-    @click:outside="cancel"
+    :close-on-content-click="false"
+    :nudge-width="200"
+    offset-x
+    right
   >
-    <v-card>
-      <v-card-title class="text-h5 primary white--text">
-        Add a field
-      </v-card-title>
+  
+    <template v-slot:activator="{ on, attrs }">   
+      <div class="project-add-row"
+        v-bind="attrs"
+        v-on="on"
+      >
+        <div class="project-left">
+          <div class="project-button">
+            <img src="@/assets/plus.svg" class="project-plus" height="24"/>
+          </div>
+          <div class="project-value">
+            Add field
+          </div>
+        </div>
+      </div>
+    </template>
 
-      <v-card-text class="card-body">
+    <v-card>
+      <v-card-text>
         <div v-if="error" class="red--text">
           {{ error }}
         </div>
         <div class="mb-2" />
-        
-        <v-text-field solo v-model="fieldName" />
-        <v-text-field solo v-model="fieldValue" />
+        <table>
+          <tr>
+            <td>
+              <div class="mb-2">Field</div>
+            </td>
+            <td>
+              <div class="mb-2">Value</div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <v-text-field 
+                outlined 
+                dense 
+                v-model="fieldName"
+                hide-details
+                style="padding-right: 10px"
+              />
+            </td>
+            <td>
+              <v-text-field 
+                outlined 
+                dense
+                hide-details
+                v-model="fieldValue" 
+              />
+            </td>
+          </tr>
+        </table>
       </v-card-text>
 
-      <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
-          text
-          @click="cancel"
-        >
+        <v-btn text @click="cancel">
           Cancel
         </v-btn>
         <v-btn
@@ -37,7 +74,7 @@
         </v-btn>
       </v-card-actions>
     </v-card>
-  </v-dialog>
+  </v-menu>
 </template>
 
 <script>
@@ -74,17 +111,15 @@ export default {
         name: this.fieldName,
         value: this.fieldValue,
       };
-      this.$emit('ok', newField)
+      this.$emit('ok', newField);
+      this.showDialog = false;
     },
     cancel() {
-      this.$emit('cancel');
+      this.showDialog = false;
     },
   }
 }
 </script>
 
 <style scoped>
-.card-body {
-  margin-top: 10px;
-}
 </style>
