@@ -4,12 +4,14 @@ const state = {
   documentList: [],
   isLoading: false,
   error: null,
+  selectedId: null,
 };
 
 const getters = {
   getList: state => state.documentList,
   getIsLoading: state => state.isLoading,
   getError: state => state.error,
+  getSelectedId: state => state.selectedId,
 };
 
 const actions = {
@@ -19,6 +21,8 @@ const actions = {
       http.get(`/documents?projectId=${projectId}`).then(response => {
         const list = response.data.documents;
         commit('setList', list);
+        const first = list && list.length ? list[0] : null;
+        commit('setSelectedId', first._id);
       })
     } catch (error) {
       commit('setError', error);
@@ -26,12 +30,15 @@ const actions = {
       commit('setIsLoading', false);
     }
   },
-  async create({ commit }, document) {
+  async create({ commit }, params) {
     commit('setError', null);
-    await http.post('/documents', document)
+    await http.post('/documents', params.document)
       .then((response) => {
         const newDoc = response.data.document;
         commit('setList', state.documentList.concat([ newDoc ]));
+        if (params.select) {
+          commit('setSelectedId', newDoc._id);
+        }
       })
       .catch(error => {
         commit('setError', error.message);
@@ -45,6 +52,9 @@ const actions = {
       .catch(error => {
         commit('setError', error);
       });
+  },
+  selectDocument({ commit }, documentId) {
+    commit('setSelectedId', documentId);
   }
 };
 
@@ -57,7 +67,10 @@ const mutations = {
   },
   setError(state, value) {
     state.error = value;
-  },  
+  },
+  setSelectedId(state, value) {
+    state.selectedId = value;
+  },
 };
 
 export default {

@@ -22,15 +22,26 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'document-row',
   props: {
     document: Object,
-    selected: Boolean,
+  },
+  computed: {
+    ...mapGetters('documentList', {
+      selectedId: 'getSelectedId',
+    }),
+    selected() {
+      return this.document._id === this.selectedId;
+    },
   },
   methods: {
+    ...mapActions('documentList', {
+      selectDocument: 'selectDocument',
+    }),
     handleClick() {
-      this.$emit('select', this.document)
+      this.selectDocument(this.document._id);
     },
   },
 }

@@ -48,7 +48,6 @@ export default {
   data() {
     return {
       projectId: null,
-      selectedDocument: null,
       showAddDialog: false,
     };
   },
@@ -56,10 +55,22 @@ export default {
     ...mapGetters('documentList', {
       documents: 'getList',
       error: 'getError',
+      selectedDocumentId: 'getSelectedId',
     }),
     ...mapGetters('fieldList', {
       fields: 'getList'
     }),
+    selectedDocument() {
+      return this.documents.find(d => d._id === this.selectedDocumentId);
+    }
+  },
+  watch: {
+    selectedDocument(newValue) {
+      this.fetchFields({
+        projectId: this.projectId,
+        documentId: newValue._id
+      });
+    },
   },
   mounted() {
     this.projectId = this.$route.params.id;
@@ -70,26 +81,22 @@ export default {
       fetchDocuments: 'fetch',
       createDocument: 'create',
       deleteDocument: 'delete',
+      selectDocument: 'selectDocument',
     }),
     ...mapActions('fieldList', {
       fetchFields: 'fetch',
     }),
     async addDocument(document) {
-      await this.createDocument(document);
+      await this.createDocument({
+        document,
+        select: true,
+      });
       if (!this.error) {
         this.showAddDialog = false;      
-        this.selectDocument(document);
       }
     },
     removeDocument(document) {
       this.deleteDocument(document._id);
-    },
-    selectDocument(document) {
-      this.selectedDocument = document;
-      this.fetchFields({
-        projectId: this.projectId,
-        documentId: document._id
-      });
     },
   }
 }
