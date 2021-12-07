@@ -2,27 +2,8 @@
   <v-menu
     v-model="showDialog"
     :close-on-content-click="false"
-    :nudge-width="200"
-    offset-x
-    right
+    :attach="'#attachMenu'"
   >
-  
-    <template v-slot:activator="{ on, attrs }">   
-      <div class="project-add-row"
-        v-bind="attrs"
-        v-on="on"
-      >
-        <div class="project-left">
-          <div class="project-button">
-            <img src="@/assets/plus.svg" class="project-plus" height="24"/>
-          </div>
-          <div class="project-value">
-            Add field
-          </div>
-        </div>
-      </div>
-    </template>
-
     <v-card>
       <v-card-text>
         <div v-if="error" class="red--text">
@@ -83,6 +64,7 @@ export default {
   props: {
     show: Boolean,
     documentId: String,
+    field: Object,
     error: String,
   },
   data() {
@@ -103,6 +85,10 @@ export default {
       this.fieldValue = null;
       this.showDialog = newValue;
     },
+    field(newValue) {
+      this.fieldName = newValue.name;
+      this.fieldValue = newValue.value;
+    }
   },
   methods: {
     add() {
@@ -112,10 +98,9 @@ export default {
         value: this.fieldValue,
       };
       this.$emit('ok', newField);
-      this.showDialog = false;
     },
     cancel() {
-      this.showDialog = false;
+      this.$emit('cancel');
     },
   }
 }
