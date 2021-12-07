@@ -48,6 +48,21 @@ const actions = {
         commit('setError', error.message);
       });
   },
+  async patch({ commit }, params) {
+    commit('setError', null);
+    await http.patch(`/fields/${params.fieldId}`, params.changes)
+      .then((response) => {
+        const index = state.list.findIndex(f => f._id === params.fieldId);
+        if (index >= 0) {
+          const newField = response.data.document;
+          state.list.splice(index, 1, newField);
+          commit('setList', state.list);
+        }
+      })
+      .catch(error => {
+        commit('setError', error.message);
+      })
+  }
 };
 
 const mutations = {

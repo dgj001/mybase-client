@@ -2,7 +2,8 @@
   <v-menu
     v-model="showDialog"
     :close-on-content-click="false"
-    :attach="'#attachMenu'"
+    :position-x="coords.x"
+    :position-y="coords.y"
   >
     <v-card>
       <v-card-text>
@@ -51,7 +52,7 @@
           :disabled="addDisabled"
           @click="add"
         >
-          Add
+          {{ field ? 'Save' : 'Add'}}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -66,6 +67,7 @@ export default {
     documentId: String,
     field: Object,
     error: String,
+    coords: Object,
   },
   data() {
     return {
@@ -86,8 +88,13 @@ export default {
       this.showDialog = newValue;
     },
     field(newValue) {
-      this.fieldName = newValue.name;
-      this.fieldValue = newValue.value;
+      if (newValue) {
+        this.fieldName = newValue.name;
+        this.fieldValue = newValue.value;
+      } else {
+        this.fieldName = null;
+        this.fieldValue = null;
+      }
     }
   },
   methods: {

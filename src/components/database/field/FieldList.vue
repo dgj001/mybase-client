@@ -9,43 +9,32 @@
       v-for="field of fields"
       :key="field._id"
       :field="field"
-      @edit="editField(field)"
+      @edit="(coords) => editField(field, coords)"
       @remove="removeField(field._id)"
     />
-    <v-menu
-      v-model="showAddDialog"
-      :close-on-content-click="false"
-      :position-x="coords.x"
-      :position-y="coords.y"
-    >
-      <v-card>
-        <v-card-text>
-          Testing 1, 2, 3
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            @click="showAddDialog = false"
-          >
-            Add
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-menu>
+    <add-field-dialog 
+      :show="showAddDialog"
+      :documentId="documentId"
+      :error="error"
+      :field="fieldToEdit"
+      :coords="coords"
+      @ok="handleOk"
+      @cancel="showAddDialog = false"
+    />
   </div>
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
+import AddFieldDialog from './AddFieldDialog';
 import AddRow from '../AddRow';
 import FieldRow from './FieldRow';
 
 export default {
   name: 'field-list',
   components: {
+    AddFieldDialog,
     AddRow,
     FieldRow,
   },
@@ -74,24 +63,36 @@ export default {
   methods: {
     ...mapActions('fieldList', {
       createField: 'create',
+      patchField: 'patch',
       deleteField: 'delete',
     }),
     addField(coords) {
-      console.log(coords)
       this.coords = coords;
       this.showAddDialog = true;
     },
     async handleOk(field) {
-      await this.createField({
-        field,
-        select: true,
-      });
+      if (this.fieldToEdit) {
+        // editing
+        this.patchField({
+          fieldId: this.fieldToEdit._id,
+          changes: field
+        });
+      } else {
+        // creating
+        await this.createField({
+          field,
+          select: true,
+        });
+      }
       if (!this.error) {
-        this.showAddDialog = false;      
+        this.showAddDialog = false;
+        this.fieldToEdit = null;
       }
     },
-    editField(field) {
+    editField(field, coords) {
       this.fieldToEdit = field;
+      this.coords = coords;
+      this.showAddDialog = true;
     },
     removeField(fieldId) {
       this.deleteField(fieldId);

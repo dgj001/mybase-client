@@ -22,6 +22,7 @@
             x-small
             v-bind="attrs"
             v-on="on"
+            @mousedown="saveCoords"
             @click="edit"
           >
             <v-icon>mdi-pencil</v-icon>
@@ -57,15 +58,22 @@ export default {
   data() {
     return {
       hovering: false,
+      coords: { x: 0, y: 0 },
     };
   },
   methods: {
     edit() {
-      this.$emit('edit');
+      this.$emit('edit', this.coords);
     },
     remove() {
       this.$emit('remove');
     },
+    saveCoords(e) {
+      this.coords = {
+        x: e.clientX,
+        y: e.clientY,
+      };
+    }
   },
 }
 </script>
