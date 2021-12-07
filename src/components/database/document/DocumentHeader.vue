@@ -1,5 +1,5 @@
 <template>
-  <div class="header-row">
+  <div class="header-row" :class="{ 'upper-right-corner': isLastChild }">
     {{ documentName }}
     <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
@@ -26,6 +26,7 @@ export default {
   name: 'document-header',
   props: {
     document: Object,
+    isLastChild: Boolean,
   },
   computed: {
     documentName() {
@@ -41,10 +42,12 @@ export default {
 </script>
 
 <style scoped>
+.upper-right-corner {
+  border-top-right-radius: 6px;
+}
 .v-list-item {
   cursor: pointer;
 }
-
 .v-list-item:hover {
   background-color: #ebebeb;
 }

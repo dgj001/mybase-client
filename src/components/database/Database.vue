@@ -1,6 +1,7 @@
 <template>
   <div class="grid-container">
     <database-header
+      :is-first-child="true"
       :is-last-child="false"
     />
     <collection-header
@@ -10,6 +11,7 @@
     />
     <document-header
       :document="selectedDocument"
+      :is-last-child="true"
       @remove="removeDocument"
     />
     <collection-list
@@ -23,7 +25,7 @@
     />
     <field-list
       :documentId="selectedDocument ? selectedDocument._id : null"
-      :fields="fields"      
+      :fields="fields"
     />
   </div>
 </template>
@@ -120,6 +122,7 @@ export default {
   width: 100%;
   height: 100%;
   display: grid;
+  background-color: white;
   grid-template-rows: auto 1fr;
   grid-template-columns: repeat(3, 1fr);
   box-shadow: 2px 2px 2px 2px rgba(0,0,0,0.15);

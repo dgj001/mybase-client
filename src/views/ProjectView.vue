@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app class="project-view">
     <v-main>
       <v-container style="height: 100%">
         <database style="height: 95%"/>
@@ -20,5 +20,7 @@ export default {
 </script>
 
 <style scoped>
-
+.project-view {  
+  background-color: #f4f4f4;
+}
 </style>

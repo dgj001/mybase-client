@@ -1,5 +1,10 @@
 <template>  
-  <div class="header-row" :class="{ 'right-border': !isLastChild }">
+  <div 
+    class="header-row" 
+    :class="{ 
+      'upper-left-corner': isFirstChild,
+      'right-border': !isLastChild 
+    }">
     
   </div>
 </template>
@@ -8,6 +13,10 @@
 export default {
   name: 'project-header',
   props: {
+    isFirstChild: {
+      type: Boolean,
+      default: false,
+    },
     isLastChild: {
       type: Boolean,
       default: true,
@@ -17,5 +26,8 @@ export default {
 </script>
 
 <style scoped>
+.upper-left-corner {
+  border-top-left-radius: 6px;
+}
 
 </style>
