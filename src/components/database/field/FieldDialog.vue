@@ -1,9 +1,10 @@
 <template>
   <v-menu
-    v-model="showDialog"
+    v-model="showMenu"
     :close-on-content-click="false"
     :position-x="coords.x"
     :position-y="coords.y"
+    @input="handleInput"
   >
     <v-card>
       <v-card-text>
@@ -52,7 +53,7 @@
           :disabled="addDisabled"
           @click="add"
         >
-          {{ field ? 'Save' : 'Add'}}
+          {{ field ? 'Update' : 'Add'}}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -61,7 +62,7 @@
 
 <script>
 export default {
-  name: 'add-field-dialog',
+  name: 'field-dialog',
   props: {
     show: Boolean,
     documentId: String,
@@ -71,7 +72,7 @@ export default {
   },
   data() {
     return {
-      showDialog: false,
+      showMenu: false,
       fieldName: null,
       fieldValue: null,
     };
@@ -83,19 +84,15 @@ export default {
   },
   watch: {
     show(newValue) {
+      this.showMenu = newValue;
+      if (this.field) {
+        this.fieldName = this.field.name;
+        this.fieldValue = this.field.value;
+      } else {
       this.fieldName = null;
       this.fieldValue = null;
-      this.showDialog = newValue;
-    },
-    field(newValue) {
-      if (newValue) {
-        this.fieldName = newValue.name;
-        this.fieldValue = newValue.value;
-      } else {
-        this.fieldName = null;
-        this.fieldValue = null;
       }
-    }
+    },
   },
   methods: {
     add() {
@@ -109,7 +106,10 @@ export default {
     cancel() {
       this.$emit('cancel');
     },
-  }
+    handleInput() {
+      this.$emit('cancel');
+    },
+  },
 }
 </script>
 

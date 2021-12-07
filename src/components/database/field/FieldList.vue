@@ -12,14 +12,14 @@
       @edit="(coords) => editField(field, coords)"
       @remove="removeField(field._id)"
     />
-    <add-field-dialog 
+    <field-dialog 
       :show="showAddDialog"
       :documentId="documentId"
       :error="error"
       :field="fieldToEdit"
       :coords="coords"
       @ok="handleOk"
-      @cancel="showAddDialog = false"
+      @cancel="handleCancel"
     />
   </div>
 </template>
@@ -27,15 +27,15 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
-import AddFieldDialog from './AddFieldDialog';
 import AddRow from '../AddRow';
+import FieldDialog from './FieldDialog';
 import FieldRow from './FieldRow';
 
 export default {
   name: 'field-list',
   components: {
-    AddFieldDialog,
     AddRow,
+    FieldDialog,
     FieldRow,
   },
   props: {
@@ -68,6 +68,7 @@ export default {
     }),
     addField(coords) {
       this.coords = coords;
+      this.fieldToEdit = null;
       this.showAddDialog = true;
     },
     async handleOk(field) {
@@ -88,6 +89,9 @@ export default {
         this.showAddDialog = false;
         this.fieldToEdit = null;
       }
+    },
+    handleCancel() {
+      this.showAddDialog = false;
     },
     editField(field, coords) {
       this.fieldToEdit = field;

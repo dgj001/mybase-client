@@ -33,10 +33,13 @@
             </span>
           </v-tooltip>
         </div>
-        <v-text-field solo v-model="documentName" />
+        <v-text-field 
+          outlined 
+          dense
+          v-model="documentName"
+        />
       </v-card-text>
 
-      <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
