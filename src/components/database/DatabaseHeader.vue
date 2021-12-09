@@ -4,8 +4,9 @@
     :class="{ 
       'upper-left-corner': isFirstChild,
       'right-border': !isLastChild 
-    }">
-    
+    }"
+  >
+    <v-icon>mdi-rhombus-split</v-icon>
   </div>
 </template>
 

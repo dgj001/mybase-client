@@ -13,6 +13,7 @@
       :document="selectedDocument"
       :is-last-child="true"
       @remove="removeDocument"
+      @removeFields="removeFields"
     />
     <collection-list
       :collections="collections"
@@ -105,12 +106,16 @@ export default {
     }),
     ...mapActions('fieldList', {
       fetchFields: 'fetch',
+      deleteAllFields: 'deleteAll',
     }),
     removeCollection(collection) {
       this.deleteCollection(collection._id);
     },
     removeDocument(document) {
       this.deleteDocument(document._id);
+    },
+    removeFields(document) {
+      this.deleteAllFields(document._id);
     },
   }
 }

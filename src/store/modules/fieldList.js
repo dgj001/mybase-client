@@ -48,6 +48,16 @@ const actions = {
         commit('setError', error.message);
       });
   },
+  async deleteAll({ commit }, documentId) {
+    commit('setError', null);
+    await http.delete(`/fields?documentId=${documentId}`)
+      .then(() => {
+        commit('setList', []);
+      })
+      .catch(error => {
+        commit('setError', error.message);
+      });
+  },
   async patch({ commit }, params) {
     commit('setError', null);
     await http.patch(`/fields/${params.fieldId}`, params.changes)

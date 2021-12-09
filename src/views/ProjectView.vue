@@ -19,8 +19,14 @@ export default {
 }
 </script>
 
+<style>
+html { 
+  overflow-y: auto;
+}
+</style>
+
 <style scoped>
 .project-view {  
-  background-color: #f4f4f4;
+  background-color: #f0f0f0;
 }
 </style>

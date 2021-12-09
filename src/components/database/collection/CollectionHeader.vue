@@ -1,6 +1,9 @@
 <template>
   <div class="header-row" :class="{ 'right-border': !isLastChild }">
-    {{ collectionName }}
+    <div class="icon-and-text">
+      <v-icon>mdi-file-document-multiple-outline</v-icon>
+      <span>{{ collectionName }}</span>
+    </div>
     <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn

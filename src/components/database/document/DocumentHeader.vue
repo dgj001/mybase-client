@@ -1,6 +1,9 @@
 <template>
   <div class="header-row" :class="{ 'upper-right-corner': isLastChild }">
-    {{ documentName }}
+    <div class="icon-and-text">
+      <v-icon>mdi-file-document-outline</v-icon>
+      <span>{{ documentName }}</span>
+    </div>
     <v-menu offset-y>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
@@ -13,8 +16,11 @@
         </v-btn>
       </template>
       <v-list>
-        <v-list-item dense @click="handleListItemLClick">
+        <v-list-item dense @click="deleteDocument">
           Delete document
+        </v-list-item>
+        <v-list-item dense @click="deleteFields">
+          Delete document fields
         </v-list-item>
       </v-list>
     </v-menu>
@@ -34,8 +40,11 @@ export default {
     },
   },
   methods: {
-    handleListItemLClick() {
+    deleteDocument() {
       this.$emit('remove', this.document);
+    },
+    deleteFields() {
+      this.$emit('removeFields', this.document);
     },
   },
 }
