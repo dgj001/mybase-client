@@ -1,5 +1,6 @@
 <template>
   <v-app class="project-view">
+    <top-bar />
     <v-main>
       <v-container style="height: 100%">
         <database style="height: 95%"/>
@@ -10,11 +11,13 @@
 
 <script>
 import Database from '../components/database/Database';
+import TopBar from '../components/TopBar';
 
 export default {
   name: 'project-view',
   components: {
-    Database
+    Database,
+    TopBar,
   },
 }
 </script>

@@ -1,24 +1,22 @@
 <template>
   <v-app>
-    <v-main>
-      <v-container>
-        <v-row>
-          <v-col>
-            <project-cards />
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
+    <top-bar />
+    <project-cards />
   </v-app>
 </template>
 
 <script>
 import ProjectCards from '@/components/ProjectCards';
+import TopBar from '@/components/TopBar';
 
 export default {
   name: 'project-view',
   components: {
     ProjectCards,
+    TopBar,
   },
 }
 </script>
+
+<style scoped>
+</style>
