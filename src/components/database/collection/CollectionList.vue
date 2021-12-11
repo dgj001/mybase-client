@@ -9,20 +9,32 @@
       :key="collection._id"
       :collection="collection"
     />
+    <add-collection-dialog
+      :show="showAddCol"
+      :projectId="projectId"
+      @save="saveCollection"
+      @cancel="showAddCol = false;"
+    />
   </div>
 </template>
 
 <script>
+import AddCollectionDialog from './AddCollectionDialog';
 import AddRow from '../AddRow';
 import CollectionRow from './CollectionRow';
 
 export default {
   name: 'collection-list',
   components: {
+    AddCollectionDialog,
     AddRow,
     CollectionRow,
   },
   props: {
+    projectId: {
+      type: String,
+      default: null,
+    },
     collections: {
       type: Array,
       default: () => [],
@@ -32,9 +44,17 @@ export default {
       default: true,
     },
   },
+  data() {
+    return {
+      showAddCol: false,
+    }
+  },
   methods: {
     addCollection() {
-      this.$emit('add');
+      this.showAddCol = true;
+    },
+    saveCollection() {
+      this.showAddCol = false;
     },
   },
 }

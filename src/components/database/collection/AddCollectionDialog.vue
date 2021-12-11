@@ -1,0 +1,196 @@
+<template>
+  <v-dialog
+    v-model="showDialog"
+    @input="handleInput"
+  >
+    <v-card>
+      <v-card-title class="text-h6 white">
+        Start a collection
+      </v-card-title>
+      <v-card-text>
+        <v-stepper v-model="dialogStep">
+          <v-stepper-header>
+            <v-stepper-step
+              :complete="dialogStep > 1"
+              step="1"
+            >
+              Give the collection an ID
+            </v-stepper-step>
+
+            <v-divider></v-divider>
+
+            <v-stepper-step
+              :complete="dialogStep > 2"
+              step="2"
+            >
+              Add its first document
+            </v-stepper-step>
+          </v-stepper-header>
+
+          <v-stepper-items>
+            <v-stepper-content step="1">
+              <v-card
+                class="mb-6"
+                flat
+                min-height="200px"
+              >
+                <div class="mb-2">
+                  Collection ID
+                </div>
+                <v-text-field 
+                  outlined 
+                  dense
+                  v-model="collectionName"
+                  :error-messages="collectionMsg"
+                />
+              </v-card>
+
+              <div class="button-panel">
+                <v-spacer />
+                <v-btn 
+                  text
+                  @click="cancel"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                  color="primary"
+                  class="ml-2"
+                  :disabled="collectionDisabled"
+                  @click="checkCollectionAvailability"
+                >
+                  Next
+                </v-btn>
+              </div>
+            </v-stepper-content>
+
+            <v-stepper-content step="2">
+              <v-card
+                class="mb-6"
+                flat
+                min-height="200px"
+              >          
+                <div class="mb-2">
+                  Document ID
+                </div>
+                <v-text-field 
+                  outlined 
+                  dense
+                  v-model="documentID"
+                />
+              </v-card>
+
+              <div class="button-panel">
+                <v-spacer />
+                <v-btn
+                  text
+                  @click="cancel"
+                >
+                  Cancel
+                </v-btn>
+                <v-btn
+                  color="primary"
+                  class="ml-2"
+                  :disabled="needDocumentID"
+                  @click="save"
+                >
+                  Save
+                </v-btn>
+
+              </div>
+            </v-stepper-content>
+          </v-stepper-items>
+        </v-stepper>
+
+      </v-card-text>
+    </v-card>
+  </v-dialog>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex';
+
+export default {
+  name: 'add-collection-dialog',
+  props: {
+    show: Boolean,
+    projectId: String,
+  },
+  data() {
+    return {
+      showDialog: false,      
+      dialogStep: 1,
+      collectionName: '',
+      collectionMsg: null,
+      documentID: '',
+    };
+  },
+  computed: {
+    ...mapGetters('collectionName', {
+      isCollectionAvailable: 'getIsAvailable',
+      isCollectionChecking: 'getIsChecking',
+    }),
+    collectionDisabled() {
+      return !this.collectionName || !this.collectionName.length || this.isCollectionChecking;
+    },
+    needDocumentID() {
+      return !this.documentID || !this.documentID.length;
+    }
+  },
+  watch: {
+    show(newValue) {
+      this.reset();
+      this.showDialog = newValue;
+    },
+    isCollectionChecking(newValue, oldValue) {
+      if (oldValue === true && newValue === false) { // falling edge
+        if (this.isCollectionAvailable) {
+          this.collectionMsg = null;
+          this.dialogStep = 2;
+        } else {
+          this.collectionMsg = 'Name already used';
+        }
+      }
+    },
+  },
+  methods: {
+    ...mapActions('collectionName', {
+      checkCollection: 'check',
+      resetCollection: 'reset',
+    }),
+    reset() {
+      this.dialogStep = 1;
+      this.collectionName = '';
+      this.documentID = '';
+      this.resetCollection();
+    },
+    checkCollectionAvailability() {
+      this.checkCollection({
+        projectId: this.projectId,
+        name: this.collectionName,
+      });
+    },
+    cancel() {
+      this.showDialog = false;
+      this.$emit('cancel')
+    },
+    save() {
+      this.showDialog = false;
+      this.$emit('save');
+    },
+    handleInput() {
+      this.$emit('cancel')
+    },
+  },
+}
+</script>
+
+<style scoped>
+.collection-dialog {
+  display: flex;
+  flex-direction: column;
+}
+.button-panel {
+  display: flex;
+}
+</style>

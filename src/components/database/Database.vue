@@ -16,6 +16,7 @@
       @removeFields="removeFields"
     />
     <collection-list
+      :projectId="projectId"
       :collections="collections"
       :is-last-child="!selectedCollection"
     />
