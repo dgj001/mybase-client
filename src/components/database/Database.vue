@@ -28,6 +28,13 @@
       :documentId="selectedDocument ? selectedDocument._id : null"
       :fields="fields"
     />
+    <confirm-dialog 
+      :show="deleteFields.show"
+      :title="deleteFields.title"
+      :message="deleteFields.message"
+      @confirm="confirmDeleteFields"
+      @cancel="deleteFields.show = false;"
+    />
   </div>
 </template>
 
@@ -36,6 +43,7 @@ import { mapActions, mapGetters } from 'vuex';
 
 import CollectionHeader from './collection/CollectionHeader';
 import CollectionList from './collection/CollectionList';
+import ConfirmDialog from './ConfirmDialog';
 import DatabaseHeader from './DatabaseHeader';
 import DocumentHeader from './document/DocumentHeader';
 import DocumentList from './document/DocumentList';
@@ -46,6 +54,7 @@ export default {
   components: { 
     CollectionHeader,
     CollectionList,
+    ConfirmDialog,
     DatabaseHeader,
     DocumentHeader,
     DocumentList,
@@ -54,6 +63,12 @@ export default {
   data() {
     return {
       projectId: null,
+      deleteFields: {
+        show: false,
+        title: '',
+        message: '',
+        documentId: null,
+      }
     };
   },
   computed: {
@@ -115,8 +130,15 @@ export default {
       this.deleteDocument(document._id);
     },
     removeFields(document) {
-      this.deleteAllFields(document._id);
+      this.deleteFields.documentId = document._id;
+      this.deleteFields.title = 'Delete all fields?';
+      this.deleteFields.message = `Delete all fields in document ${document.id}?`;
+      this.deleteFields.show = true;
     },
+    confirmDeleteFields() {
+      this.deleteFields.show = false;
+      this.deleteAllFields(this.deleteFields.documentId);
+    }
   }
 }
 </script>
