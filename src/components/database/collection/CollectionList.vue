@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 import AddCollectionDialog from './AddCollectionDialog';
 import AddRow from '../AddRow';
 import CollectionRow from './CollectionRow';
@@ -50,10 +52,17 @@ export default {
     }
   },
   methods: {
+    ...mapActions('collectionList', {
+      createCollection: 'create',
+    }),
     addCollection() {
       this.showAddCol = true;
     },
-    saveCollection() {
+    saveCollection(params) {
+      this.createCollection({
+        projectId: this.projectId,
+        ...params
+      });
       this.showAddCol = false;
     },
   },

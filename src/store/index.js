@@ -5,6 +5,7 @@ import auth from './modules/auth';
 import collectionList from './modules/collectionList';
 import collectionName from './modules/collectionName';
 import documentList from './modules/documentList';
+import documentName from './modules/documentName';
 import fieldList from './modules/fieldList';
 import projectList from './modules/projectList';
 import user from './modules/user';
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     collectionList,
     collectionName,
     documentList,
+    documentName,
     fieldList,
     projectList,
     user,

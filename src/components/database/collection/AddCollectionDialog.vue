@@ -91,7 +91,7 @@
                 <v-btn
                   color="primary"
                   class="ml-2"
-                  :disabled="needDocumentID"
+                  :disabled="saveDisabled"
                   @click="save"
                 >
                   Save
@@ -133,7 +133,7 @@ export default {
     collectionDisabled() {
       return !this.collectionName || !this.collectionName.length || this.isCollectionChecking;
     },
-    needDocumentID() {
+    saveDisabled() {
       return !this.documentID || !this.documentID.length;
     }
   },
@@ -176,9 +176,13 @@ export default {
     },
     save() {
       this.showDialog = false;
-      this.$emit('save');
+      this.$emit('save', {
+        collectionName: this.collectionName,
+        documentName: this.documentID,
+      });
     },
     handleInput() {
+      // click outside of dialog closing it
       this.$emit('cancel')
     },
   },

@@ -39,6 +39,25 @@ const actions = {
         commit('setError', error);
       });
   },
+  async create({ commit }, params) {
+    commit('setError', null);
+    try {
+      const response = await http.post('/collections', {
+        projectId: params.projectId,
+        name: params.collectionName
+      });
+      const collection = response.data.document;
+
+      await http.post('/documents', {
+        collectionId: collection._id,
+        id: params.documentName
+      });
+
+      commit('setList', state.list.concat(collection));
+    } catch (error) {
+      commit('setError', error);
+    }
+  },
   select({ commit }, collectionId) {
     commit('setSelectedId', collectionId);
   }

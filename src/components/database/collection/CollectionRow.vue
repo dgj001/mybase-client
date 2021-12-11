@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     ...mapActions('collectionList', {
-      selectCollection: 'selectCollection',
+      selectCollection: 'select',
     }),
     handleClick() {
       this.selectCollection(this.collection._id);
