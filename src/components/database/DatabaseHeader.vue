@@ -6,7 +6,10 @@
       'right-border': !isLastChild 
     }"
   >
-    <v-icon>mdi-rhombus-split</v-icon>
+    <div class="icon-and-text">
+      <v-icon>mdi-rhombus-split</v-icon>
+      {{ project ? project.target : '' }}
+    </div>
   </div>
 </template>
 
@@ -21,6 +24,10 @@ export default {
     isLastChild: {
       type: Boolean,
       default: true,
+    },
+    project: {
+      type: Object,
+      default: () => {},
     },
   },
 }

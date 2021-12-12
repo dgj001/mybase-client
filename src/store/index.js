@@ -7,6 +7,7 @@ import collectionName from './modules/collectionName';
 import documentList from './modules/documentList';
 import documentName from './modules/documentName';
 import fieldList from './modules/fieldList';
+import project from './modules/project';
 import projectList from './modules/projectList';
 import user from './modules/user';
 
@@ -20,6 +21,7 @@ export default new Vuex.Store({
     documentList,
     documentName,
     fieldList,
+    project,
     projectList,
     user,
   }

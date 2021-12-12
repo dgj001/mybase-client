@@ -11,7 +11,7 @@
     />
     <add-collection-dialog
       :show="showAddCol"
-      :projectId="projectId"
+      :projectId="project._id"
       @save="saveCollection"
       @cancel="showAddCol = false;"
     />
@@ -33,8 +33,8 @@ export default {
     CollectionRow,
   },
   props: {
-    projectId: {
-      type: String,
+    project: {
+      type: Object,
       default: null,
     },
     collections: {
@@ -60,7 +60,7 @@ export default {
     },
     saveCollection(params) {
       this.createCollection({
-        projectId: this.projectId,
+        projectId: this.project._id,
         ...params
       });
       this.showAddCol = false;

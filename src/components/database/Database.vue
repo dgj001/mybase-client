@@ -3,6 +3,7 @@
     <database-header
       :is-first-child="true"
       :is-last-child="false"
+      :project="project"
     />
     <collection-header
       :collection="selectedCollection"
@@ -16,7 +17,7 @@
       @removeFields="removeFields"
     />
     <collection-list
-      :projectId="projectId"
+      :project="project"
       :collections="collections"
       :is-last-child="!selectedCollection"
     />
@@ -63,7 +64,6 @@ export default {
   },
   data() {
     return {
-      projectId: null,
       deleteFields: {
         show: false,
         title: '',
@@ -73,6 +73,9 @@ export default {
     };
   },
   computed: {
+    ...mapGetters('project', {
+      project: 'getProject',
+    }),
     ...mapGetters('collectionList', {
       collections: 'getList',
       selectedCollectionId: 'getSelectedId',
@@ -106,10 +109,14 @@ export default {
     },
   },
   mounted() {
-    this.projectId = this.$route.params.id;
-    this.fetchCollections(this.projectId);
+    const projectId = this.$route.params.id;
+    this.fetchProject(projectId);
+    this.fetchCollections(projectId);
   },
   methods: {
+    ...mapActions('project', {
+      fetchProject: 'fetch',
+    }),
     ...mapActions('collectionList', {
       fetchCollections: 'fetch',
       deleteCollection: 'delete',
