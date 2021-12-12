@@ -83,7 +83,7 @@ export default {
     confirmRemoveDocument() {
       this.showDocumentConfirm = false
       this.deleteDocument(this.document._id);
-      this.selectDocument(null);
+      this.selectDocument({ first: true });
     },
     confirmRemoveFields() {
       this.showFieldsConfirm = false;

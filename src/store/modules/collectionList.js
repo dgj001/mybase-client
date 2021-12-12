@@ -21,8 +21,7 @@ const actions = {
       http.get(`/collections?projectId=${projectId}`).then(response => {
         const list = response.data.documents;
         commit('setList', list);
-        const firstId = list && list.length ? list[0]._id : null;
-        commit('setSelectedId', firstId);
+        this.dispatch('collectionList/select', { first: true })
       })
     } catch (error) {
       commit('setError', error);
@@ -58,15 +57,15 @@ const actions = {
       commit('setError', error);
     }
   },
-  select({ commit }, collectionId) {
-    if (collectionId !== null) {
-      commit('setSelectedId', collectionId);
-    } else if (state.list.length > 0) {
-      commit('setSelectedId', state.list[0]._id);
-    } else {
-      commit('setSelectedId', null);
+  select({ commit }, params) {
+    if (params.collectionId) {
+      commit('setSelectedId', params.collectionId);
+    } else if (params.first) {
+      commit('setSelectedId', state.list.length > 0 ? state.list[0]._id : null);
+    } else if (params.last) {
+      commit('setSelectedId', state.list.length > 0 ? state.list[state.list.length - 1]._id : null);
     }
-  }
+  },
 };
 
 const mutations = {

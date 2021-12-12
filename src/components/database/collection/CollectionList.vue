@@ -54,16 +54,18 @@ export default {
   methods: {
     ...mapActions('collectionList', {
       createCollection: 'create',
+      selectCollection: 'select',
     }),
     addCollection() {
       this.showAddCol = true;
     },
-    saveCollection(params) {
-      this.createCollection({
+    async saveCollection(params) {
+      this.showAddCol = false;
+      await this.createCollection({
         projectId: this.project._id,
         ...params
       });
-      this.showAddCol = false;
+      this.selectCollection({ last: true });
     },
   },
 }

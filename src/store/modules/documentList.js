@@ -53,15 +53,15 @@ const actions = {
         commit('setError', error);
       });
   },
-  select({ commit }, documentId) {
-    if (documentId !== null) {
-      commit('setSelectedId', documentId);
-    } else if (state.list.length > 0) {
-      commit('setSelectedId', state.list[0]._id);
-    } else {
-      commit('setSelectedId', null);
+  select({ commit }, params) {
+    if (params.documentId) {
+      commit('setSelectedId', params.documentId);
+    } else if (params.first) {
+      commit('setSelectedId', state.list.length > 0 ? state.list[0]._id : null);
+    } else if (params.last) {
+      commit('setSelectedId', state.list.length > 0 ? state.list[state.list.length - 1]._id : null);
     }
-  }
+  },
 };
 
 const mutations = {

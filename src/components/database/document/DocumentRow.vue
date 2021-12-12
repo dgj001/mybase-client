@@ -41,7 +41,7 @@ export default {
       selectDocument: 'select',
     }),
     handleClick() {
-      this.selectDocument(this.document._id);
+      this.selectDocument({ documentId: this.document._id });
     },
   },
 }

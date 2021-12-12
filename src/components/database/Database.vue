@@ -97,11 +97,9 @@ export default {
     }),
     ...mapActions('collectionList', {
       fetchCollections: 'fetch',
-      selectCollection: 'select',
     }),
     ...mapActions('documentList', {
       fetchDocuments: 'fetch',
-      selectDocument: 'select',
     }),
     ...mapActions('fieldList', {
       fetchFields: 'fetch',

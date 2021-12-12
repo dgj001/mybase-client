@@ -1,7 +1,7 @@
 import http from "@/http";
 
 const state = {
-  list: null,
+  list: [],
   isLoading: false,
   error: null,
 };
@@ -72,7 +72,7 @@ const actions = {
       .catch(error => {
         commit('setError', error.message);
       })
-  }
+  },
 };
 
 const mutations = {

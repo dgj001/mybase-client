@@ -43,7 +43,7 @@ export default {
       selectCollection: 'select',
     }),
     handleClick() {
-      this.selectCollection(this.collection._id);
+      this.selectCollection({ collectionId: this.collection._id });
     },
   },
 }

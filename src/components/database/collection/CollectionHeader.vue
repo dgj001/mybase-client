@@ -63,7 +63,7 @@ export default {
     confirmRemove() {
       this.showConfirm = false;
       this.deleteCollection(this.collection._id);
-      this.selectCollection(null);
+      this.selectCollection({ first: true });
     },
   },
 }
