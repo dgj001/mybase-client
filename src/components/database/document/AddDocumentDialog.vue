@@ -9,7 +9,7 @@
         Add a document
       </v-card-title>
 
-      <v-card-text class="card-body">
+      <v-card-text class="mt-5">
         <div v-if="error" class="red--text">
           {{ error }}
         </div>
@@ -101,7 +101,4 @@ export default {
 </script>
 
 <style scoped>
-.card-body {
-  margin-top: 10px;
-}
 </style>

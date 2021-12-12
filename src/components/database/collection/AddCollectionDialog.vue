@@ -4,105 +4,103 @@
     @input="handleInput"
   >
     <v-card>
-      <v-card-title class="text-h6 white">
+      <v-card-title class="primary white--text">
         Start a collection
       </v-card-title>
-      <v-card-text>
-        <v-stepper v-model="dialogStep">
-          <v-stepper-header>
-            <v-stepper-step
-              :complete="dialogStep > 1"
-              step="1"
+    
+      <v-stepper v-model="dialogStep">
+        <v-stepper-header class="mt-5 ml-5 mr-5">
+          <v-stepper-step
+            :complete="dialogStep > 1"
+            step="1"
+          >
+            Give the collection an ID
+          </v-stepper-step>
+
+          <v-divider></v-divider>
+
+          <v-stepper-step
+            :complete="dialogStep > 2"
+            step="2"
+          >
+            Add its first document
+          </v-stepper-step>
+        </v-stepper-header>
+
+        <v-stepper-items>
+          <v-stepper-content step="1">
+            <v-card
+              class="mb-6"
+              flat
+              min-height="200px"
             >
-              Give the collection an ID
-            </v-stepper-step>
+              <div class="mb-2">
+                Collection ID
+              </div>
+              <v-text-field 
+                outlined 
+                dense
+                v-model="collectionName"
+                :error-messages="collectionMsg"
+              />
+            </v-card>
 
-            <v-divider></v-divider>
-
-            <v-stepper-step
-              :complete="dialogStep > 2"
-              step="2"
-            >
-              Add its first document
-            </v-stepper-step>
-          </v-stepper-header>
-
-          <v-stepper-items>
-            <v-stepper-content step="1">
-              <v-card
-                class="mb-6"
-                flat
-                min-height="200px"
+            <div class="button-panel">
+              <v-spacer />
+              <v-btn 
+                text
+                @click="cancel"
               >
-                <div class="mb-2">
-                  Collection ID
-                </div>
-                <v-text-field 
-                  outlined 
-                  dense
-                  v-model="collectionName"
-                  :error-messages="collectionMsg"
-                />
-              </v-card>
+                Cancel
+              </v-btn>
+              <v-btn
+                color="primary"
+                class="ml-2"
+                :disabled="collectionDisabled"
+                @click="checkCollectionAvailability"
+              >
+                Next
+              </v-btn>
+            </div>
+          </v-stepper-content>
 
-              <div class="button-panel">
-                <v-spacer />
-                <v-btn 
-                  text
-                  @click="cancel"
-                >
-                  Cancel
-                </v-btn>
-                <v-btn
-                  color="primary"
-                  class="ml-2"
-                  :disabled="collectionDisabled"
-                  @click="checkCollectionAvailability"
-                >
-                  Next
-                </v-btn>
+          <v-stepper-content step="2">
+            <v-card
+              class="mb-6"
+              flat
+              min-height="200px"
+            >          
+              <div class="mb-2">
+                Document ID
               </div>
-            </v-stepper-content>
+              <v-text-field 
+                outlined 
+                dense
+                v-model="documentID"
+              />
+            </v-card>
 
-            <v-stepper-content step="2">
-              <v-card
-                class="mb-6"
-                flat
-                min-height="200px"
-              >          
-                <div class="mb-2">
-                  Document ID
-                </div>
-                <v-text-field 
-                  outlined 
-                  dense
-                  v-model="documentID"
-                />
-              </v-card>
+            <div class="button-panel">
+              <v-spacer />
+              <v-btn
+                text
+                @click="cancel"
+              >
+                Cancel
+              </v-btn>
+              <v-btn
+                color="primary"
+                class="ml-2"
+                :disabled="saveDisabled"
+                @click="save"
+              >
+                Save
+              </v-btn>
 
-              <div class="button-panel">
-                <v-spacer />
-                <v-btn
-                  text
-                  @click="cancel"
-                >
-                  Cancel
-                </v-btn>
-                <v-btn
-                  color="primary"
-                  class="ml-2"
-                  :disabled="saveDisabled"
-                  @click="save"
-                >
-                  Save
-                </v-btn>
-
-              </div>
-            </v-stepper-content>
-          </v-stepper-items>
-        </v-stepper>
-
-      </v-card-text>
+            </div>
+          </v-stepper-content>
+        </v-stepper-items>
+      </v-stepper>
     </v-card>
   </v-dialog>
 </template>

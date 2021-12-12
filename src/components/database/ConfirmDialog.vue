@@ -5,11 +5,11 @@
     @input="handleInput"
   >
     <v-card>
-      <v-card-title class="text-h5">
+      <v-card-title class="primary white--text">
         {{ title }}
       </v-card-title>
 
-      <v-card-text>
+      <v-card-text class="mt-5">
         {{ message }}
       </v-card-text>
 
