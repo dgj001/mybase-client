@@ -73,6 +73,9 @@ const actions = {
         commit('setError', error.message);
       })
   },
+  clear({ commit }) {
+    commit('setList', []);
+  },
 };
 
 const mutations = {

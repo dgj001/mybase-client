@@ -88,6 +88,8 @@ export default {
   },
   mounted() {
     const projectId = this.$route.params.id;
+    this.clearDocuments();
+    this.clearFields();
     this.fetchProject(projectId);
     this.fetchCollections(projectId);
   },
@@ -100,9 +102,11 @@ export default {
     }),
     ...mapActions('documentList', {
       fetchDocuments: 'fetch',
+      clearDocuments: 'clear',
     }),
     ...mapActions('fieldList', {
       fetchFields: 'fetch',
+      clearFields: 'clear',
     }),
   }
 }

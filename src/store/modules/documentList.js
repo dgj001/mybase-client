@@ -62,6 +62,10 @@ const actions = {
       commit('setSelectedId', state.list.length > 0 ? state.list[state.list.length - 1]._id : null);
     }
   },
+  clear({ commit }) {
+    commit('setList', []);
+    commit('setSelectedId', null);
+  },
 };
 
 const mutations = {
