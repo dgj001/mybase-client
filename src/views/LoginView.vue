@@ -2,22 +2,24 @@
   <v-app>
     <v-container fill-height fluid class="login-container">
       <v-card flat color="#d0d0d0" class="mx-auto" min-width="500px">
-        <v-card-text>
-          <v-img 
-            src="@/assets/logo-with-text.svg" 
-            class="mx-auto mb-5"
-            max-width="88px"
-          />
+        <v-card-text class="pb-0">
+          <div class="brand">
+            <v-img 
+              src="@/assets/logo-with-text.svg" 
+              class="mx-auto mb-5"
+              max-width="88px"
+            />
+          </div>
           <div>
             <v-text-field
               label="Email"
-              filled persistent-placeholder
+              filled persistent-placeholder dense
               v-model="email"
               @keypress.enter="onLogin"
             />          
             <v-text-field
               label="Password"
-              filled persistent-placeholder
+              filled persistent-placeholder dense
               v-model="password"
               class="input-group--focused"
               :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -92,6 +94,10 @@ export default {
 
 <style scoped>
 .login-container {
-  background-color: #505253;  
+  background-color: #f0f0f0;
+}
+
+.brand {
+  background-color: #3C787E;
 }
 </style>

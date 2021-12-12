@@ -6,18 +6,57 @@
       max-height="100%"
       max-width="48px"
     />
+    <div class="mybase pl-2">MyBase</div>
     <v-spacer />
+    <v-menu
+      bottom
+      left
+    >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          dark
+          icon
+          v-bind="attrs"
+          v-on="on"
+        >
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item dense>
+          <v-list-item-title @click="doLogout">Logout</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
   </v-app-bar>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   name: 'top-bar',
+  methods: {
+    ...mapActions('auth', {
+      logout: 'logout',
+    }),
+    doLogout() {
+      this.logout();      
+      this.$router.push('/login')
+    },
+  },
 }
 </script>
 
 <style scoped>
-.logo {
-  margin-left: 0px;
+.mybase {
+  color: white;  
+}
+.v-list-item {
+  cursor: pointer;
+}
+.v-list-item:hover {
+  background-color: #ebebeb;
 }
 </style>
