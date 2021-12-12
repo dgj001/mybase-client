@@ -11,7 +11,7 @@
     />
     <add-collection-dialog
       :show="showAddCol"
-      :projectId="project._id"
+      :projectId="project ? project._id : null"
       @save="saveCollection"
       @cancel="showAddCol = false;"
     />

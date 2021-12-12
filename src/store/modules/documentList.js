@@ -54,7 +54,13 @@ const actions = {
       });
   },
   select({ commit }, documentId) {
-    commit('setSelectedId', documentId);
+    if (documentId !== null) {
+      commit('setSelectedId', documentId);
+    } else if (state.list.length > 0) {
+      commit('setSelectedId', state.list[0]._id);
+    } else {
+      commit('setSelectedId', null);
+    }
   }
 };
 

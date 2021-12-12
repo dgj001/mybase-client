@@ -24,7 +24,8 @@
         </v-btn>
 
         <v-btn
-          color="red"          
+          dark
+          color="red"
           @click="confirm"
         >
           Delete

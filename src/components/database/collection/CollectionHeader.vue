@@ -16,20 +16,39 @@
         </v-btn>
       </template>
       <v-list>
-        <v-list-item dense @click="handleListItemLClick">
+        <v-list-item dense @click="showConfirm = true">
           Delete collection
         </v-list-item>
       </v-list>
     </v-menu>
+    <confirm-dialog 
+      :show="showConfirm"
+      title="Delete collection?"
+      :message="`Delete collection ${this.collectionName} and all of its documents?`"
+      @confirm="confirmRemove"
+      @cancel="showConfirm = false"
+    />
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
+import ConfirmDialog from '../ConfirmDialog';
+
 export default {
   name: 'collection-header',
+  components: {
+    ConfirmDialog,
+  },
   props: {
     collection: Object,
     isLastChild: Boolean,
+  },
+  data() {
+    return {
+      showConfirm: false,
+    };
   },
   computed: {
     collectionName() {
@@ -37,8 +56,14 @@ export default {
     },
   },
   methods: {
-    handleListItemLClick() {
-      this.$emit('remove', this.collection);
+    ...mapActions('collectionList', {
+      deleteCollection: 'delete',
+      selectCollection: 'select',
+    }),
+    confirmRemove() {
+      this.showConfirm = false;
+      this.deleteCollection(this.collection._id);
+      this.selectCollection(null);
     },
   },
 }

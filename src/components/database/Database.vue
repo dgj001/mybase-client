@@ -8,13 +8,10 @@
     <collection-header
       :collection="selectedCollection"
       :is-last-child="false"
-      @remove="removeCollection"
     />
     <document-header
       :document="selectedDocument"
       :is-last-child="true"
-      @remove="removeDocument"
-      @removeFields="removeFields"
     />
     <collection-list
       :project="project"
@@ -30,13 +27,6 @@
       :documentId="selectedDocument ? selectedDocument._id : null"
       :fields="fields"
     />
-    <confirm-dialog 
-      :show="deleteFields.show"
-      :title="deleteFields.title"
-      :message="deleteFields.message"
-      @confirm="confirmDeleteFields"
-      @cancel="deleteFields.show = false;"
-    />
   </div>
 </template>
 
@@ -45,7 +35,6 @@ import { mapActions, mapGetters } from 'vuex';
 
 import CollectionHeader from './collection/CollectionHeader';
 import CollectionList from './collection/CollectionList';
-import ConfirmDialog from './ConfirmDialog';
 import DatabaseHeader from './DatabaseHeader';
 import DocumentHeader from './document/DocumentHeader';
 import DocumentList from './document/DocumentList';
@@ -56,21 +45,10 @@ export default {
   components: { 
     CollectionHeader,
     CollectionList,
-    ConfirmDialog,
     DatabaseHeader,
     DocumentHeader,
     DocumentList,
     FieldList,
-  },
-  data() {
-    return {
-      deleteFields: {
-        show: false,
-        title: '',
-        message: '',
-        documentId: null,
-      }
-    };
   },
   computed: {
     ...mapGetters('project', {
@@ -119,34 +97,15 @@ export default {
     }),
     ...mapActions('collectionList', {
       fetchCollections: 'fetch',
-      deleteCollection: 'delete',
       selectCollection: 'select',
     }),
     ...mapActions('documentList', {
       fetchDocuments: 'fetch',
-      deleteDocument: 'delete',
       selectDocument: 'select',
     }),
     ...mapActions('fieldList', {
       fetchFields: 'fetch',
-      deleteAllFields: 'deleteAll',
     }),
-    removeCollection(collection) {
-      this.deleteCollection(collection._id);
-    },
-    removeDocument(document) {
-      this.deleteDocument(document._id);
-    },
-    removeFields(document) {
-      this.deleteFields.documentId = document._id;
-      this.deleteFields.title = 'Delete all fields?';
-      this.deleteFields.message = `Delete all fields in document ${document.id}?`;
-      this.deleteFields.show = true;
-    },
-    confirmDeleteFields() {
-      this.deleteFields.show = false;
-      this.deleteAllFields(this.deleteFields.documentId);
-    }
   }
 }
 </script>

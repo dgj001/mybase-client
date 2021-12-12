@@ -16,23 +16,50 @@
         </v-btn>
       </template>
       <v-list>
-        <v-list-item dense @click="deleteDocument">
+        <v-list-item dense @click="removeDocument">
           Delete document
         </v-list-item>
-        <v-list-item dense @click="deleteFields">
+        <v-list-item dense @click="removeFields">
           Delete document fields
         </v-list-item>
       </v-list>
     </v-menu>
+    <confirm-dialog 
+      :show="showDocumentConfirm"
+      title="Delete document?"
+      :message="`Delete document ${this.documentName} and all of its fields?`"
+      @confirm="confirmRemoveDocument"
+      @cancel="showDocumentConfirm = false"
+    />
+    <confirm-dialog 
+      :show="showFieldsConfirm"
+      title="Delete all fields?"
+      :message="`Delete all fields in document ${this.documentName}?`"
+      @confirm="confirmRemoveFields"
+      @cancel="showFieldsConfirm = false"
+    />
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
+import ConfirmDialog from '../ConfirmDialog';
+
 export default {
   name: 'document-header',
+  components: {
+    ConfirmDialog,
+  },
   props: {
     document: Object,
     isLastChild: Boolean,
+  },
+  data() {
+    return {
+      showDocumentConfirm: false,
+      showFieldsConfirm: false,
+    };
   },
   computed: {
     documentName() {
@@ -40,11 +67,27 @@ export default {
     },
   },
   methods: {
-    deleteDocument() {
-      this.$emit('remove', this.document);
+    ...mapActions('documentList', {
+      deleteDocument: 'delete',
+      selectDocument: 'select',
+    }),
+    ...mapActions('fieldList', {
+      deleteAllFields: 'deleteAll',
+    }),
+    removeDocument() {
+      this.showDocumentConfirm = true;
     },
-    deleteFields() {
-      this.$emit('removeFields', this.document);
+    removeFields() {
+      this.showFieldsConfirm = true;
+    },
+    confirmRemoveDocument() {
+      this.showDocumentConfirm = false
+      this.deleteDocument(this.document._id);
+      this.selectDocument(null);
+    },
+    confirmRemoveFields() {
+      this.showFieldsConfirm = false;
+      this.deleteAllFields(this.document._id);
     },
   },
 }

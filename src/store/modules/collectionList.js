@@ -59,7 +59,13 @@ const actions = {
     }
   },
   select({ commit }, collectionId) {
-    commit('setSelectedId', collectionId);
+    if (collectionId !== null) {
+      commit('setSelectedId', collectionId);
+    } else if (state.list.length > 0) {
+      commit('setSelectedId', state.list[0]._id);
+    } else {
+      commit('setSelectedId', null);
+    }
   }
 };
 
