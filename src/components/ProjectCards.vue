@@ -8,6 +8,7 @@
         </div>
         <v-row>
           <v-col cols="3">
+            <new-project-card />
             <project-card
               v-for="project of columnList1"
               :key="project._id"
@@ -37,11 +38,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
+import NewProjectCard from './NewProjectCard';
 import ProjectCard from './ProjectCard';
 
 export default {
   name: 'project-cards',
   components: {
+    NewProjectCard,
     ProjectCard,
   },
   computed: {
@@ -49,13 +52,13 @@ export default {
       projectList: 'getList'
     }),
     columnList1() {
-      return this.projectList.filter((project, index) => index % 3 === 0);
+      return this.projectList.filter((project, index) => (index + 1) % 3 === 0);
     },
     columnList2() {
-      return this.projectList.filter((project, index) => index % 3 === 1);
+      return this.projectList.filter((project, index) => (index + 1) % 3 === 1);
     },
     columnList3() {
-      return this.projectList.filter((project, index) => index % 3 === 2);
+      return this.projectList.filter((project, index) => (index + 1) % 3 === 2);
     },
   },
   mounted() {
