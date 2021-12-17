@@ -14,15 +14,29 @@
       </div>
       <v-spacer></v-spacer>    
     </v-card-text>
+    <new-project-dialog
+      :show="showNewDialog"
+      @cancel="showNewDialog = false"
+    />
   </v-card>
 </template>
 
 <script>
+import NewProjectDialog from './NewProjectDialog';
+
 export default {
   name: 'new-project-card',
+  components: {
+    NewProjectDialog,
+  },
+  data() {
+    return {
+      showNewDialog: false,
+    };
+  },
   methods: {
     open() {
-
+      this.showNewDialog = true;
     },
   },
 }

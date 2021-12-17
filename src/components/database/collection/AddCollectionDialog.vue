@@ -45,7 +45,7 @@
               />
             </v-card>
 
-            <div class="button-panel">
+            <div class="d-flex">
               <v-spacer />
               <v-btn 
                 text
@@ -80,7 +80,7 @@
               />
             </v-card>
 
-            <div class="button-panel">
+            <div class="d-flex">
               <v-spacer />
               <v-btn
                 text
@@ -191,8 +191,5 @@ export default {
 .collection-dialog {
   display: flex;
   flex-direction: column;
-}
-.button-panel {
-  display: flex;
 }
 </style>
