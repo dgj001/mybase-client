@@ -125,7 +125,6 @@ export default {
   },
   computed: {
     ...mapGetters('collectionName', {
-      isCollectionAvailable: 'getIsAvailable',
       isCollectionChecking: 'getIsChecking',
     }),
     collectionDisabled() {
@@ -140,32 +139,28 @@ export default {
       this.reset();
       this.showDialog = newValue;
     },
-    isCollectionChecking(newValue, oldValue) {
-      if (oldValue === true && newValue === false) { // falling edge
-        if (this.isCollectionAvailable) {
-          this.collectionMsg = null;
-          this.dialogStep = 2;
-        } else {
-          this.collectionMsg = 'Name already used';
-        }
-      }
-    },
   },
   methods: {
     ...mapActions('collectionName', {
       checkCollection: 'check',
-      resetCollection: 'reset',
     }),
     reset() {
       this.dialogStep = 1;
       this.collectionName = '';
       this.documentID = '';
-      this.resetCollection();
+      this.collectionMsg = null;
     },
     checkCollectionAvailability() {
       this.checkCollection({
         projectId: this.projectId,
         name: this.collectionName,
+      }).then(isAvailable => {
+        if (isAvailable) {
+          this.collectionMsg = null;
+          this.dialogStep = 2;
+        } else {
+          this.collectionMsg = 'Name already used';
+        }
       });
     },
     cancel() {
