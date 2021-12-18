@@ -9,6 +9,7 @@ import documentName from './modules/documentName';
 import fieldList from './modules/fieldList';
 import project from './modules/project';
 import projectList from './modules/projectList';
+import projectName from './modules/projectName';
 import user from './modules/user';
 
 Vue.use(Vuex)
@@ -23,6 +24,7 @@ export default new Vuex.Store({
     fieldList,
     project,
     projectList,
+    projectName,
     user,
   }
 })

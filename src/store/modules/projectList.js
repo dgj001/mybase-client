@@ -1,13 +1,13 @@
 import http from "@/http";
 
 const state = {
-  projectList: [],
+  list: [],
   isLoading: false,
   error: null,
 };
 
 const getters = {
-  getList: state => state.projectList,
+  getList: state => state.list,
   getIsLoading: state => state.isLoading,
   getError: state => state.error,
 };
@@ -15,6 +15,7 @@ const getters = {
 const actions = {
   async fetch({ commit }) {
     commit('setIsLoading', true);
+    commit('setError', null);
     try {
       http.get('/projects').then(response => {
         const list = response.data.documents;
@@ -26,11 +27,30 @@ const actions = {
       commit('setIsLoading', false);
     }
   },
+  create({ commit }, name) {    
+    return new Promise((resolve, reject) => {
+      commit('setIsLoading', true);
+      commit('setError', null);
+      http.post('/projects/', { name })
+        .then((response) => {          
+          const newProject = response.data.document;
+          commit('setList', state.list.concat(newProject));
+          resolve(newProject);
+        })
+        .catch((error) => {
+          commit('setError', null);
+          reject(error);
+        })
+        .finally(() => {
+          commit('setIsLoading', false);
+        })
+    });
+  }
 };
 
 const mutations = {
   setList(state, value) {
-    state.projectList = value;
+    state.list = value;
   },
   setIsLoading(state, value) {
     state.isLoading = value;
