@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Database from '../components/database/Database';
+import Database from '../components/project/Database';
 import TopBar from '../components/TopBar';
 
 export default {
