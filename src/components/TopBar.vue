@@ -25,8 +25,8 @@
       </template>
 
       <v-list>
-        <v-list-item dense>
-          <v-list-item-title @click="doLogout">Logout</v-list-item-title>
+        <v-list-item dense @click="doLogout">
+          <v-list-item-title>Logout</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -63,11 +63,5 @@ export default {
 <style scoped>
 .mybase {
   color: white;  
-}
-.v-list-item {
-  cursor: pointer;
-}
-.v-list-item:hover {
-  background-color: #ebebeb;
 }
 </style>

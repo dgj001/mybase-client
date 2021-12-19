@@ -97,10 +97,4 @@ export default {
 .upper-right-corner {
   border-top-right-radius: 6px;
 }
-.v-list-item {
-  cursor: pointer;
-}
-.v-list-item:hover {
-  background-color: #ebebeb;
-}
 </style>
