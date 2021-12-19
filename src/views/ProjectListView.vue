@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import ProjectCards from '@/components/ProjectCards';
+import ProjectCards from '@/components/project/ProjectCards';
 import TopBar from '@/components/TopBar';
 
 export default {
