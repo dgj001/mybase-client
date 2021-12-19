@@ -44,7 +44,7 @@
 <script>
 import { mapActions } from 'vuex';
 
-import ConfirmDialog from '../ConfirmDialog';
+import ConfirmDialog from '@/components/common/ConfirmDialog';
 
 export default {
   name: 'document-header',
