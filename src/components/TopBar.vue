@@ -35,7 +35,7 @@
 
 <script>
 import { mapActions } from 'vuex';
-import ProjectSelector from './project/ProjectSelector';
+import ProjectSelector from './project-list/ProjectSelector';
 
 export default {
   name: 'top-bar',
