@@ -36,7 +36,9 @@
         <v-text-field 
           outlined 
           dense
+          autofocus
           v-model="documentName"
+          @keydown.enter="triggerSaveButton"
         />
       </v-card-text>
 
@@ -49,6 +51,7 @@
           Cancel
         </v-btn>
         <v-btn
+          ref="saveButton"
           color="primary"
           :disabled="saveDisabled"
           @click="ok"
@@ -95,6 +98,9 @@ export default {
     },
     cancel() {
       this.$emit('cancel');
+    },
+    triggerSaveButton() {
+      this.$refs.saveButton.$el.click();
     },
   }
 }

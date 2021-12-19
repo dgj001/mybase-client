@@ -23,12 +23,14 @@
           </tr>
           <tr>
             <td>
-              <v-text-field 
+              <v-text-field
+                autofocus
                 outlined 
                 dense 
                 v-model="fieldName"
                 hide-details
                 style="padding-right: 10px"
+                @keydown.enter="triggerAddButton"
               />
             </td>
             <td>
@@ -36,7 +38,8 @@
                 outlined 
                 dense
                 hide-details
-                v-model="fieldValue" 
+                v-model="fieldValue"
+                @keydown.enter="triggerAddButton"
               />
             </td>
           </tr>
@@ -49,6 +52,7 @@
           Cancel
         </v-btn>
         <v-btn
+          ref="addButton"
           color="primary"
           :disabled="addDisabled"
           @click="add"
@@ -108,6 +112,9 @@ export default {
     },
     handleInput() {
       this.$emit('cancel');
+    },
+    triggerAddButton() {
+      this.$refs.addButton.$el.click();
     },
   },
 }

@@ -40,8 +40,10 @@
               <v-text-field 
                 outlined 
                 dense
+                autofocus
                 v-model="collectionName"
                 :error-messages="collectionMsg"
+                @keydown.enter="triggerCollectionNext"
               />
             </v-card>
 
@@ -54,6 +56,7 @@
                 Cancel
               </v-btn>
               <v-btn
+                ref="collectionNext"
                 color="primary"
                 class="ml-2"
                 :disabled="collectionDisabled"
@@ -76,7 +79,9 @@
               <v-text-field 
                 outlined 
                 dense
-                v-model="documentID"
+                autofocus
+                v-model="documentID"                
+                @keydown.enter="triggerDocumentNext"
               />
             </v-card>
 
@@ -89,6 +94,7 @@
                 Cancel
               </v-btn>
               <v-btn
+                ref="documentNext"
                 color="primary"
                 class="ml-2"
                 :disabled="saveDisabled"
@@ -178,6 +184,12 @@ export default {
       // click outside of dialog closing it
       this.$emit('cancel')
     },
+    triggerCollectionNext() {
+      this.$refs.collectionNext.$el.click()
+    },
+    triggerDocumentNext() {
+      this.$refs.documentNext.$el.click()
+    }
   },
 }
 </script>

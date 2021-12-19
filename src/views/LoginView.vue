@@ -12,10 +12,10 @@
           </div>
           <div>
             <v-text-field
+              autofocus
               label="Email"
               filled persistent-placeholder dense
               v-model="email"
-              @keypress.enter="onLogin"
             />          
             <v-text-field
               label="Password"
@@ -26,6 +26,7 @@
               :rules="[rules.required, rules.min]"
               :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword = !showPassword"
+              @keypress.enter="onLogin"
             />
           </div>
         </v-card-text>
