@@ -36,7 +36,7 @@
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'top-bar',
+  name: 'project-list-top-bar',
   methods: {
     ...mapActions('auth', {
       logout: 'logout',
