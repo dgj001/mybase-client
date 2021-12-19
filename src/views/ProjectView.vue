@@ -1,6 +1,6 @@
 <template>
   <v-app class="project-view">
-    <top-bar />
+    <top-bar :show-project-list="true" />
     <v-main>
       <v-container style="height: 100%">
         <database style="height: 95%"/>

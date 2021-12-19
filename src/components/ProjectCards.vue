@@ -7,7 +7,7 @@
           MyBase projects:
         </div>
         <v-row>
-          <v-col cols="3">
+          <v-col cols="4">
             <new-project-card />
             <project-card
               v-for="project of columnList1"
@@ -15,14 +15,14 @@
               :project="project"
             />
           </v-col>
-          <v-col cols="3">
+          <v-col cols="4">
             <project-card
               v-for="project of columnList2"
               :key="project._id"
               :project="project"
             />
           </v-col>
-          <v-col cols="3">
+          <v-col cols="4">
             <project-card
               v-for="project of columnList3"
               :key="project._id"

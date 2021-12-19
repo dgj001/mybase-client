@@ -1,26 +1,33 @@
 import http from "@/http";
 
 const state = {
+  fetched: false,
   list: [],
   isLoading: false,
   error: null,
+  selectedId: null,
 };
 
 const getters = {
   getList: state => state.list,
   getIsLoading: state => state.isLoading,
   getError: state => state.error,
+  getSelectedId: state => state.selectedId,
 };
 
 const actions = {
-  async fetch({ commit }) {
+  async fetch({ commit }, reload) {
+    if (state.fetched && !reload) {
+      return; // use cached
+    }
     commit('setIsLoading', true);
     commit('setError', null);
     try {
       http.get('/projects').then(response => {
         const list = response.data.documents;
         commit('setList', list);
-      })
+      });
+      state.fetched = true;
     } catch (error) {
       commit('setError', error);
     } finally {
@@ -45,7 +52,16 @@ const actions = {
           commit('setIsLoading', false);
         })
     });
-  }
+  },
+  select({ commit }, params) {
+    if (params.projectId) {
+      commit('setSelectedId', params.projectId);
+    } else if (params.first) {
+      commit('setSelectedId', state.list.length > 0 ? state.list[0]._id : null);
+    } else if (params.last) {
+      commit('setSelectedId', state.list.length > 0 ? state.list[state.list.length - 1]._id : null);
+    }
+  },
 };
 
 const mutations = {
@@ -57,7 +73,10 @@ const mutations = {
   },
   setError(state, value) {
     state.error = value;
-  },  
+  },
+  setSelectedId(state, value) {
+    state.selectedId = value;
+  },
 };
 
 export default {

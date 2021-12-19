@@ -51,6 +51,9 @@ export default {
     FieldList,
   },
   computed: {
+    ...mapGetters('projectList', {
+      selectedProjectId: 'getSelectedId',
+    }),
     ...mapGetters('project', {
       project: 'getProject',
     }),
@@ -70,9 +73,16 @@ export default {
     },
     selectedDocument() {
       return this.documents.find(d => d._id === this.selectedDocumentId);
-    }
+    },
   },
   watch: {
+    selectedProjectId(newValue) {
+      if (!newValue) return;
+      this.fetchProject(newValue);
+      this.fetchCollections(newValue);
+      this.clearDocuments();
+      this.clearFields();
+    },
     selectedCollection(newValue) {
       if (!newValue) return;
       this.fetchDocuments({
@@ -88,12 +98,12 @@ export default {
   },
   mounted() {
     const projectId = this.$route.params.id;
-    this.clearDocuments();
-    this.clearFields();
-    this.fetchProject(projectId);
-    this.fetchCollections(projectId);
+    this.selectProject({ projectId });
   },
   methods: {
+    ...mapActions('projectList', {
+      selectProject: 'select',
+    }),
     ...mapActions('project', {
       fetchProject: 'fetch',
     }),
