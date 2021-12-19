@@ -1,6 +1,6 @@
 <template>
-  <div class="header-row" :class="{ 'right-border': !isLastChild }">
-    <div class="icon-and-text">
+  <div class="db-header-row" :class="{ 'db-right-border': !isLastChild }">
+    <div class="db-icon-and-text">
       <v-icon>mdi-file-document-multiple-outline</v-icon>
       <span>{{ collectionName }}</span>
     </div>

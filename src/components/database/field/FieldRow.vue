@@ -1,19 +1,19 @@
 <template>
   <div 
-    class="project-row field-row" 
+    class="db-row field-row" 
     @mouseover="hovering = true" 
     @mouseleave="hovering = false"
   >
-    <div class="project-left">
-      <div class="project-button" />
-      <div class="project-name">
+    <div class="db-left-col">
+      <div class="db-button" />
+      <div class="db-name">
         {{ field.name }}:
       </div>
-      <div class="project-value">
+      <div>
         "{{ field.value }}"
       </div>
     </div>
-    <div class="project-right">
+    <div>
       <v-tooltip bottom>
         <template v-slot:activator="{ on, attrs }">
           <v-btn

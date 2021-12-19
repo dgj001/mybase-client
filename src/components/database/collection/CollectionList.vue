@@ -1,5 +1,5 @@
 <template>
-  <div class="collection-list" :class="{ 'right-border': !isLastChild }">
+  <div class="collection-list" :class="{ 'db-right-border': !isLastChild }">
     <add-row 
       label="Start collection" 
       @click="addCollection"

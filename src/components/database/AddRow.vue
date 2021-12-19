@@ -1,10 +1,10 @@
 <template>
-  <div class="project-add-row" @mousedown="saveCoords" @click="handleClick">
-    <div class="project-left">
-      <div class="project-button">
-        <img src="@/assets/plus.svg" class="project-plus" height="24"/>
+  <div class="db-add-row" @mousedown="saveCoords" @click="handleClick">
+    <div class="db-left-col">
+      <div class="db-button">
+        <img src="@/assets/plus.svg" height="24"/>
       </div>
-      <div class="project-value">
+      <div>
         {{ label }}
       </div>
     </div>

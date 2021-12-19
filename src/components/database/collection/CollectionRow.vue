@@ -1,16 +1,16 @@
 <template>
   <div 
-    class="project-row"
-    :class="{ 'project-selected': selected }"
+    class="db-row"
+    :class="{ 'db-selected': selected }"
     @click="handleClick"
   >
-    <div class="project-left">
-      <div class="project-button" />
-      <div class="project-name" :class="{ 'project-bold': selected }">
+    <div class="db-left-col">
+      <div class="db-button" />
+      <div class="db-name" :class="{ 'db-bold': selected }">
         {{ collection.name }}
       </div>
     </div>
-    <div class="project-right">
+    <div>
       <img 
         src="@/assets/right-angle-bracket.svg" 
         class="right-bracket"

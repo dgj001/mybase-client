@@ -1,12 +1,12 @@
 <template>  
   <div 
-    class="header-row" 
+    class="db-header-row" 
     :class="{ 
-      'upper-left-corner': isFirstChild,
-      'right-border': !isLastChild 
+      'db-upper-left-corner': isFirstChild,
+      'db-right-border': !isLastChild 
     }"
   >
-    <div class="icon-and-text">
+    <div class="db-icon-and-text">
       <v-icon>mdi-rhombus-split</v-icon>
       {{ project ? project.target : '' }}
     </div>
@@ -34,8 +34,4 @@ export default {
 </script>
 
 <style scoped>
-.upper-left-corner {
-  border-top-left-radius: 6px;
-}
-
 </style>

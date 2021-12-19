@@ -1,6 +1,6 @@
 <template>
-  <div class="header-row" :class="{ 'upper-right-corner': isLastChild }">
-    <div class="icon-and-text">
+  <div class="db-header-row" :class="{ 'db-upper-right-corner': isLastChild }">
+    <div class="db-icon-and-text">
       <v-icon>mdi-file-document-outline</v-icon>
       <span>{{ documentName }}</span>
     </div>
@@ -94,7 +94,4 @@ export default {
 </script>
 
 <style scoped>
-.upper-right-corner {
-  border-top-right-radius: 6px;
-}
 </style>

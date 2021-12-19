@@ -1,5 +1,5 @@
 <template>
-  <div class="document-list" :class="{ 'right-border': !isLastChild }">
+  <div class="document-list" :class="{ 'db-right-border': !isLastChild }">
     <add-row 
       label="Add document" 
       @click="addDocument"
