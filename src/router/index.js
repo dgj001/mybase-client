@@ -6,7 +6,7 @@ import ProjectListView from '../views/ProjectListView'
 import ProjectView from '../views/ProjectView'
 import LoginView from '../views/LoginView'
 
-import Database from '../components/project/Database';
+import Database from '../components/project/cascade/Database';
 
 Vue.use(VueRouter);
 

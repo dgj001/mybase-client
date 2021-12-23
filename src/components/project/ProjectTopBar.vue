@@ -1,12 +1,5 @@
 <template>
-  <v-app-bar app flat clipped-left color="primary" height="48px">
-    <v-img 
-      src="@/assets/logo.svg"
-      class="logo"
-      max-height="100%"
-      max-width="48px"
-    />
-    <div class="mybase pl-2 pr-6">MyBase</div>
+  <v-app-bar app flat height="48px" color="#f0f0f0">
     <project-selector />
     <v-spacer />
     <v-menu
@@ -15,7 +8,6 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          dark
           icon
           v-bind="attrs"
           v-on="on"

@@ -6,7 +6,6 @@
       item-text="name"
       item-value="_id"
       hide-details
-      dark
       dense
       @change="select"
     >

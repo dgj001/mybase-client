@@ -33,12 +33,12 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
-import CollectionHeader from './cascade/collection/CollectionHeader';
-import CollectionList from './cascade/collection/CollectionList';
-import DatabaseHeader from './cascade/DatabaseHeader';
-import DocumentHeader from './cascade/document/DocumentHeader';
-import DocumentList from './cascade/document/DocumentList';
-import FieldList from './cascade/field/FieldList';
+import CollectionHeader from './collection/CollectionHeader';
+import CollectionList from './collection/CollectionList';
+import DatabaseHeader from './DatabaseHeader';
+import DocumentHeader from './document/DocumentHeader';
+import DocumentList from './document/DocumentList';
+import FieldList from './field/FieldList';
 
 export default {
   name: 'database',
@@ -123,7 +123,7 @@ export default {
 </script>
 
 <style scoped>
-@import './cascade/cascade.css';
+@import './database.css';
 .grid-container {
   width: 100%;
   height: 100%;
