@@ -25,6 +25,21 @@
             <span>Database</span>
           </v-tooltip>
         </v-list-item>
+        <v-list-item
+          :href="settingsUrl"
+        >
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on, attrs }">
+                <v-icon
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  mdi-cog
+                </v-icon>
+            </template>
+            <span>Settings</span>
+          </v-tooltip>
+        </v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-main>
@@ -54,7 +69,10 @@ export default {
     }),
     cascadeUrl() {
       return `/projects/${this.projectId}/cascade`;
-    }
+    },
+    settingsUrl() {
+      return `/projects/${this.projectId}/settings`;
+    },
   },
 }
 </script>

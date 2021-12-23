@@ -7,6 +7,7 @@ import ProjectView from '../views/ProjectView'
 import LoginView from '../views/LoginView'
 
 import Database from '../components/project/cascade/Database';
+import Settings from '../components/project/settings/Settings';
 
 Vue.use(VueRouter);
 
@@ -50,6 +51,10 @@ const routes = [
       {
         path: '/projects/:id/cascade',
         component: Database,
+      },
+      {
+        path: '/projects/:id/settings',
+        component: Settings,
       }
     ]
   },
