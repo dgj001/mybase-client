@@ -6,6 +6,8 @@ import ProjectListView from '../views/ProjectListView'
 import ProjectView from '../views/ProjectView'
 import LoginView from '../views/LoginView'
 
+import Database from '../components/project/Database';
+
 Vue.use(VueRouter);
 
 const ifNotAuthenticated = (to, from, next) => {
@@ -40,6 +42,16 @@ const routes = [
     name: 'project',
     component: ProjectView,
     beforeEnter: ifAuthenticated,
+    children: [
+      {
+        path: '/projects/:id?',
+        redirect: '/projects/:id/cascade',
+      },
+      {
+        path: '/projects/:id/cascade',
+        component: Database,
+      }
+    ]
   },
   {
     path: '/login',

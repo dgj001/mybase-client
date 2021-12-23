@@ -3,20 +3,18 @@
     <project-top-bar />
     <v-main>
       <v-container style="height: 100%">
-        <database style="height: 95%"/>
+        <router-view />
       </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script>
-import Database from '../components/project/Database';
 import ProjectTopBar from '../components/project/ProjectTopBar';
 
 export default {
   name: 'project-view',
   components: {
-    Database,
     ProjectTopBar,
   },
 }

@@ -25,8 +25,7 @@ export default {
   methods: {
     open() {
       this.$router.push({ 
-        name: `project`, 
-        params: { id: this.project._id },
+        path: `projects/${this.project._id}/cascade`
       });
     },
   },
